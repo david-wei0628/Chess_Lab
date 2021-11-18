@@ -10,11 +10,11 @@ public class Chess_Move : MonoBehaviour
     {
         Lock_objext = "Board";
     }
-
     public Camera main_camear;
     GameObject ChessMen;
     string Lock_objext;
     Vector3 maps;
+    Vector3[] WhiteChessposition = new Vector3[16];
     Ray ray;
     RaycastHit hit;
     ChessMen_Move ChessMen_Move = new ChessMen_Move();
@@ -28,7 +28,7 @@ public class Chess_Move : MonoBehaviour
         {
             Select_Ray();
             SetChessColliderEnabled();
-            ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext);
+            ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition);
             Lock_objext = "Board";
         }
 
@@ -67,7 +67,7 @@ public class Chess_Move : MonoBehaviour
         ray = main_camear.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit, 3500);
         maps = hit.point;
-        Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+        Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.9f, true);
         Coordinate_correction();
         return Physics.Raycast(ray, out hit, 3500);
     }
@@ -77,7 +77,10 @@ public class Chess_Move : MonoBehaviour
     void SetChessColliderEnabled()
     {
         for (int i = 0; i < this.GetComponentsInChildren<Collider>().Length; i++)
+        {
             this.GetComponentsInChildren<Collider>()[i].enabled = !this.GetComponentsInChildren<Collider>()[i].enabled;
+            WhiteChessposition[i] = this.GetComponentsInChildren<Collider>()[i].transform.position;
+        }
     }
     
     
