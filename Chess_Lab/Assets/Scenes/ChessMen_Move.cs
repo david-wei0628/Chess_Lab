@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Chess.ChessMen
 {
-    public class ChessMen_Move : MonoBehaviour
+    public class ChessMen_Move
     {
-        public GameObject Select_Move(GameObject ChessMen,Vector3 maps,string Lock_objext)
+        public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext)
         {
 
             switch (ChessMen.tag)
