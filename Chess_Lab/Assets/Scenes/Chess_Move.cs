@@ -67,7 +67,7 @@ public class Chess_Move : MonoBehaviour
         ray = main_camear.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit, 3500);
         maps = hit.point;
-        Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.9f, true);
+        //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.9f, true);
         Coordinate_correction();
         return Physics.Raycast(ray, out hit, 3500);
     }

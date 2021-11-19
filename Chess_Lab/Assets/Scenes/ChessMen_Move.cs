@@ -5,7 +5,7 @@ namespace Chess.ChessMen
 {
     public class ChessMen_Move
     {
-        Vector3 BoardPositionMaxRange = new Vector3(700, 0, 700);
+        Vector3 BoardPositionMaxRange = new Vector3(800, 0, 800);
         Vector3 BoardPositionMinRange = new Vector3(0, 0, 0);
 
         public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext,Vector3[] ChessMensPosition)
@@ -31,10 +31,12 @@ namespace Chess.ChessMen
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                     break;
                 case "Rook":
-                    if (maps.z == ChessMen.transform.position.z && maps.x < BoardPositionMaxRange.x)
-                        ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
-                    else if (maps.x == ChessMen.transform.position.x && maps.z < BoardPositionMaxRange.z)
-                        ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                    if (maps.z == ChessMen.transform.position.z)
+                        if(maps.x <= BoardPositionMaxRange.x && maps.x >= BoardPositionMinRange.x)
+                            ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                     if (maps.x == ChessMen.transform.position.x)
+                         if (maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
+                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                     break;
                 case "bishop":
                     if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == Mathf.Abs(maps.x - ChessMen.transform.position.x) 
@@ -67,21 +69,23 @@ namespace Chess.ChessMen
 
         void ChessMoveMax(GameObject ChessMen,Vector3[] ChessMensPosition)
         {
-            switch(ChessMen.tag)
+            int ChessMensPosition_size;
+            ChessMensPosition_size = ChessMensPosition.Length;
+            switch (ChessMen.tag)
             {
                 case "Pawn":
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < ChessMensPosition_size; i++)
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-                            if (ChessMen.transform.position.x == ChessMensPosition[i].x)
-                                if (ChessMensPosition[i].z - ChessMen.transform.position.z == 100)
-                                    BoardPositionMaxRange.z = ChessMensPosition[i].z;
+                            //if (ChessMen.transform.position.x == ChessMensPosition[i].x)
+                            //    if (ChessMensPosition[i].z - ChessMen.transform.position.z == 100)
+                            //        BoardPositionMaxRange.z = ChessMensPosition[i].z;
                         }
                     }
-                            break;
+                    break;
                 case "Knight":
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < ChessMensPosition_size; i++)
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
@@ -90,30 +94,38 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "Rook":
-                    for(int i = 0; i < 16  ; i++)
+                    for (int i = 0; i < ChessMensPosition_size; i++)
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-                            if (ChessMen.transform.position.x == ChessMensPosition[i].x && ChessMensPosition[i].z <= BoardPositionMaxRange.z)
-                                if (ChessMen.transform.position.z != ChessMensPosition[i].z)
+                            if (ChessMensPosition[i].x == ChessMen.transform.position.x)
+                            {
+                                if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
                                     BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
-                            if (ChessMen.transform.position.z == ChessMensPosition[i].z && ChessMensPosition[i].x <= BoardPositionMaxRange.x)
-                                if (ChessMen.transform.position.x != ChessMensPosition[i].x)
+                                if (ChessMensPosition[i].z >= BoardPositionMinRange.z && ChessMensPosition[i].z < ChessMen.transform.position.z)
+                                    BoardPositionMinRange.z = ChessMensPosition[i].z ;
+                            }
+                            if (ChessMensPosition[i].z == ChessMen.transform.position.z)
+                            {
+                                if (ChessMensPosition[i].x <= BoardPositionMaxRange.x && ChessMensPosition[i].x > ChessMen.transform.position.x)
                                     BoardPositionMaxRange.x = ChessMensPosition[i].x - 100;
+                                if (ChessMensPosition[i].x >= BoardPositionMinRange.x && ChessMensPosition[i].x < ChessMen.transform.position.x)
+                                    BoardPositionMinRange.x = ChessMensPosition[i].x ;
+                            }
                         }
                     }
                     break;
                 case "bishop":
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < ChessMensPosition_size; i++)
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-
+                            
                         }
                     }
                     break;
                 case "Quent":
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < ChessMensPosition_size; i++)
                     {
                         if (ChessMen.transform.position.x == ChessMensPosition[i].x && ChessMensPosition[i].z <= BoardPositionMaxRange.z)
                             BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
@@ -122,7 +134,7 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "King":
-                    for (int i = 0; i < 16; i++)
+                    for (int i = 0; i < ChessMensPosition_size; i++)
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
