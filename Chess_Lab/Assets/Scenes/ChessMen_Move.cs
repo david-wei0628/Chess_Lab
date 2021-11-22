@@ -113,14 +113,8 @@ namespace Chess.ChessMen
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-                            if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 200 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
-                                if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 100)
-                                    if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
-                                        kChessTpye = false;
-                            if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 100 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
-                                if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 200)
-                                    if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
-                                        kChessTpye = false;
+                            if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
+                                kChessTpye = false;
                         }
                     }
                     break;
@@ -189,11 +183,8 @@ namespace Chess.ChessMen
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-                            if(Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100)
-                            {
-                                if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
-                                    kChessTpye = false;
-                            }
+                            if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
+                                kChessTpye = false;
                         }
                     }
                     break;
