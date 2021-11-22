@@ -7,6 +7,7 @@ namespace Chess.ChessMen
     {
         Vector3 BoardPositionMaxRange;
         Vector3 BoardPositionMinRange;
+        bool kChessTpye;
 
         public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext,Vector3[] ChessMensPosition)
         {
@@ -26,12 +27,15 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "Knight":
-                    if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 200 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
-                        if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 100)
-                            ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
-                    if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 100 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
-                        if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 200)
-                            ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                    if (kChessTpye)
+                    {
+                        if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 200 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
+                            if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 100)
+                                ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                        if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 100 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
+                            if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 200)
+                                ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                    }
                     break;
                 case "Rook":
                     if (maps.z == ChessMen.transform.position.z)
@@ -70,7 +74,7 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "King":
-                    if (Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100)
+                    if (Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100 && kChessTpye)
                         ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                     break;
             }
@@ -86,6 +90,7 @@ namespace Chess.ChessMen
             ChessMensPosition_size = ChessMensPosition.Length;
             BoardPositionMaxRange = new Vector3(700, 0, 700);
             BoardPositionMinRange = new Vector3(0, 0, 0);
+            kChessTpye = true;
             switch (ChessMen.tag)
             {
                 case "Pawn":
@@ -108,7 +113,14 @@ namespace Chess.ChessMen
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-
+                            if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 200 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
+                                if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 100)
+                                    if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
+                                        kChessTpye = false;
+                            if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 100 && maps.z <= BoardPositionMaxRange.z && maps.z >= BoardPositionMinRange.z)
+                                if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 200)
+                                    if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
+                                        kChessTpye = false;
                         }
                     }
                     break;
@@ -177,7 +189,11 @@ namespace Chess.ChessMen
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-
+                            if(Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100)
+                            {
+                                if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
+                                    kChessTpye = false;
+                            }
                         }
                     }
                     break;
