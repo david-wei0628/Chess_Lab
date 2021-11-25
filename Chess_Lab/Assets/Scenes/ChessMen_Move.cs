@@ -11,7 +11,7 @@ namespace Chess.ChessMen
 
         public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext,Vector3[] ChessMensPosition)
         {
-            ChessMoveMax(ChessMen,maps, ChessMensPosition);
+            ChessMoveRange(ChessMen,maps, ChessMensPosition);
             switch (ChessMen.tag)
             {
                 case "Pawn":
@@ -84,7 +84,7 @@ namespace Chess.ChessMen
             return ChessMen;
         }
 
-        void ChessMoveMax(GameObject ChessMen,Vector3 maps, Vector3[] ChessMensPosition)
+        void ChessMoveRange(GameObject ChessMen,Vector3 maps, Vector3[] ChessMensPosition)
         {
             int ChessMensPosition_size;
             ChessMensPosition_size = ChessMensPosition.Length;
@@ -102,8 +102,6 @@ namespace Chess.ChessMen
                             {
                                 if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
                                     BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
-                                if (ChessMensPosition[i].z >= BoardPositionMinRange.z && ChessMensPosition[i].z < ChessMen.transform.position.z)
-                                    BoardPositionMinRange.z = ChessMensPosition[i].z;
                             }
                         }
                     }
@@ -145,18 +143,32 @@ namespace Chess.ChessMen
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-                            if(Mathf.Abs(ChessMensPosition[i].x + ChessMensPosition[i].z) == Mathf.Abs(ChessMen.transform.position.x + ChessMen.transform.position.z))
+                            if(Mathf.Abs(ChessMensPosition[i].x + ChessMensPosition[i].z) == Mathf.Abs(maps.x + maps.z))
                             {
-
+                                if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
+                                    BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
+                                if (ChessMensPosition[i].z >= BoardPositionMinRange.z && ChessMensPosition[i].z < ChessMen.transform.position.z)
+                                    BoardPositionMinRange.z = ChessMensPosition[i].z + 100;
+                                if (ChessMensPosition[i].x <= BoardPositionMaxRange.x && ChessMensPosition[i].x > ChessMen.transform.position.x)
+                                    BoardPositionMaxRange.x = ChessMensPosition[i].x - 100;
+                                if (ChessMensPosition[i].x >= BoardPositionMinRange.x && ChessMensPosition[i].x < ChessMen.transform.position.x)
+                                    BoardPositionMinRange.x = ChessMensPosition[i].x + 100;
                             }
-                            if (Mathf.Abs(ChessMensPosition[i].x - ChessMensPosition[i].z) == Mathf.Abs(ChessMen.transform.position.x - ChessMen.transform.position.z))
+                            else if (Mathf.Abs(ChessMensPosition[i].x - ChessMensPosition[i].z) == Mathf.Abs(maps.x - maps.z))
                             {
-
+                                if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
+                                    BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
+                                if (ChessMensPosition[i].z >= BoardPositionMinRange.z && ChessMensPosition[i].z < ChessMen.transform.position.z)
+                                    BoardPositionMinRange.z = ChessMensPosition[i].z + 100;
+                                if (ChessMensPosition[i].x <= BoardPositionMaxRange.x && ChessMensPosition[i].x > ChessMen.transform.position.x)
+                                    BoardPositionMaxRange.x = ChessMensPosition[i].x - 100;
+                                if (ChessMensPosition[i].x >= BoardPositionMinRange.x && ChessMensPosition[i].x < ChessMen.transform.position.x)
+                                    BoardPositionMinRange.x = ChessMensPosition[i].x + 100;
                             }
                         }
                     }
                     break;
-                case "Quent":
+                case "Queen":
                     for (int i = 0; i < ChessMensPosition_size; i++)
                     {
                         if (ChessMensPosition[i].y == 0)
