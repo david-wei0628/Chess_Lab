@@ -143,7 +143,7 @@ namespace Chess.ChessMen
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-                            if(Mathf.Abs(ChessMensPosition[i].x + ChessMensPosition[i].z) == Mathf.Abs(maps.x + maps.z))
+                            if((ChessMensPosition[i].x + ChessMensPosition[i].z) == (ChessMen.transform.position.x + ChessMen.transform.position.z) && (ChessMen.transform.position.x + ChessMen.transform.position.z) == (maps.x + maps.z))
                             {
                                 if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
                                     BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
@@ -154,7 +154,7 @@ namespace Chess.ChessMen
                                 if (ChessMensPosition[i].x >= BoardPositionMinRange.x && ChessMensPosition[i].x < ChessMen.transform.position.x)
                                     BoardPositionMinRange.x = ChessMensPosition[i].x + 100;
                             }
-                            else if (Mathf.Abs(ChessMensPosition[i].x - ChessMensPosition[i].z) == Mathf.Abs(maps.x - maps.z))
+                            else if ((ChessMensPosition[i].x - ChessMensPosition[i].z) == (ChessMen.transform.position.x - ChessMen.transform.position.z) && (ChessMen.transform.position.x - ChessMen.transform.position.z) == (maps.x - maps.z))
                             {
                                 if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
                                     BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
@@ -182,6 +182,28 @@ namespace Chess.ChessMen
                             }
                             if (ChessMensPosition[i].z == ChessMen.transform.position.z)
                             {
+                                if (ChessMensPosition[i].x <= BoardPositionMaxRange.x && ChessMensPosition[i].x > ChessMen.transform.position.x)
+                                    BoardPositionMaxRange.x = ChessMensPosition[i].x - 100;
+                                if (ChessMensPosition[i].x >= BoardPositionMinRange.x && ChessMensPosition[i].x < ChessMen.transform.position.x)
+                                    BoardPositionMinRange.x = ChessMensPosition[i].x + 100;
+                            }
+                            if ((ChessMensPosition[i].x + ChessMensPosition[i].z) == (ChessMen.transform.position.x + ChessMen.transform.position.z) && (ChessMen.transform.position.x + ChessMen.transform.position.z) == (maps.x + maps.z))
+                            {
+                                if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
+                                    BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
+                                if (ChessMensPosition[i].z >= BoardPositionMinRange.z && ChessMensPosition[i].z < ChessMen.transform.position.z)
+                                    BoardPositionMinRange.z = ChessMensPosition[i].z + 100;
+                                if (ChessMensPosition[i].x <= BoardPositionMaxRange.x && ChessMensPosition[i].x > ChessMen.transform.position.x)
+                                    BoardPositionMaxRange.x = ChessMensPosition[i].x - 100;
+                                if (ChessMensPosition[i].x >= BoardPositionMinRange.x && ChessMensPosition[i].x < ChessMen.transform.position.x)
+                                    BoardPositionMinRange.x = ChessMensPosition[i].x + 100;
+                            }
+                            else if ((ChessMensPosition[i].x - ChessMensPosition[i].z) == (ChessMen.transform.position.x - ChessMen.transform.position.z) && (ChessMen.transform.position.x - ChessMen.transform.position.z) == (maps.x - maps.z))
+                            {
+                                if (ChessMensPosition[i].z <= BoardPositionMaxRange.z && ChessMensPosition[i].z > ChessMen.transform.position.z)
+                                    BoardPositionMaxRange.z = ChessMensPosition[i].z - 100;
+                                if (ChessMensPosition[i].z >= BoardPositionMinRange.z && ChessMensPosition[i].z < ChessMen.transform.position.z)
+                                    BoardPositionMinRange.z = ChessMensPosition[i].z + 100;
                                 if (ChessMensPosition[i].x <= BoardPositionMaxRange.x && ChessMensPosition[i].x > ChessMen.transform.position.x)
                                     BoardPositionMaxRange.x = ChessMensPosition[i].x - 100;
                                 if (ChessMensPosition[i].x >= BoardPositionMinRange.x && ChessMensPosition[i].x < ChessMen.transform.position.x)
