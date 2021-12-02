@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Chess.Board;
 
 namespace Chess.ChessMen
 {
@@ -7,6 +8,7 @@ namespace Chess.ChessMen
     {
         Vector3 BoardPositionMaxRange;
         Vector3 BoardPositionMinRange;
+        BoardPosition BoardPosition = new BoardPosition();
         bool kChessTpye;
 
         public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext,Vector3[] ChessMensPosition)
