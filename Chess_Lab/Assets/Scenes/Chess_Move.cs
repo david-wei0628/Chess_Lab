@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Chess.ChessMen;
+using Chess.Board;
 
 public class Chess_Move : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class Chess_Move : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     ChessMen_Move ChessMen_Move = new ChessMen_Move();
-    
+    BoardPosition BoardPosition = new BoardPosition();
+
     // Update is called once per frame
     void Update()
     {
@@ -29,14 +31,16 @@ public class Chess_Move : MonoBehaviour
             Select_Ray();
             SetChessColliderEnabled();
             ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition);
+            print(BoardPosition.BoardPositionRange(ChessMen, maps, WhiteChessposition));
             Lock_objext = "Board";
         }
+
 
     }
     
 
     /// <summary>
-    /// 基礎完成後，此方法轉到ChessMen_Move.cs使用，因為有雙色棋用同方法
+    /// 基礎完成後，此方法轉到ChessMen_Move.cs使用，因為有雙色棋用同方法    
     /// </summary>
     void Select_Chess()
     {
