@@ -66,9 +66,9 @@ namespace Chess.Board
                             }
                         }
                     }
-                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
+                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x)
                         ChessMoveRange = true;
-                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
+                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z)
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;
@@ -106,9 +106,9 @@ namespace Chess.Board
                             }
                         }
                     }
-                    if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x)
+                    if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                         ChessMoveRange = true;
-                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x)
+                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;
@@ -160,13 +160,13 @@ namespace Chess.Board
                             }
                         }
                     }
-                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
+                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x)
                         ChessMoveRange = true;
-                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
+                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z)
                         ChessMoveRange = true;
-                    else if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x)
+                    if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                         ChessMoveRange = true;
-                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x)
+                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;   
@@ -211,13 +211,13 @@ namespace Chess.Board
                             }
                         }
                     }
-                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
+                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x)
                         ChessMoveRange = true;
-                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
+                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z)
                         ChessMoveRange = true;
-                    else if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x)
+                    else if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                         ChessMoveRange = true;
-                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x)
+                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;
@@ -229,13 +229,13 @@ namespace Chess.Board
         void BoardPositionReset()
         {
             BoardPositionXMax = new Vector3(800, 0, 0);
-            BoardPositionXMin = new Vector3(0, 0, 0);
+            BoardPositionXMin = new Vector3(-100, 0, 0);
             BoardPositionZMax = new Vector3(0, 0, 800);
-            BoardPositionZMin = new Vector3(0, 0, 0);
+            BoardPositionZMin = new Vector3(0, 0, -100);
             BoardPositionI = new Vector3(800, 0, 800);
-            BoardPositionII = new Vector3(0, 0, 800);
-            BoardPositionIII = new Vector3(0, 0, 0);
-            BoardPositionIV = new Vector3(800, 0, 0);
+            BoardPositionII = new Vector3(-100, 0, 800);
+            BoardPositionIII = new Vector3(-100, 0, -100);
+            BoardPositionIV = new Vector3(800, 0, -100);
         }
     }
 }
