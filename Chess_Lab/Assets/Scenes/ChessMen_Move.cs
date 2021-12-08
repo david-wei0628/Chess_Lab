@@ -19,7 +19,7 @@ namespace Chess.ChessMen
             switch (ChessMen.tag)
             {
                 case "Pawn":
-                    if (ChessMen.transform.position.x == maps.x && maps.z <= BoardPositionMaxRange.z)
+                    if (ChessMen.transform.position.x == maps.x && ChessMoveType)
                     {
                         if (ChessMen.transform.position.z == 100)
                         {
@@ -31,15 +31,15 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "Knight":
-                    if (ChessMoveType)
-                    {
+                    //if (ChessMoveType)
+                    //{
                         if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 200)
                             if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 100)
                                 ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                         if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == 100)
                             if (Mathf.Abs(maps.x - ChessMen.transform.position.x) == 200)
                                 ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
-                    }
+                    //}
                     break;
                 case "Rook":
                     if (ChessMoveType)
@@ -63,7 +63,7 @@ namespace Chess.ChessMen
                         if (ChessMoveType)
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                     }
-                    if (maps.x == ChessMen.transform.position.x)
+                    else if (maps.x == ChessMen.transform.position.x)
                     {
                         if (ChessMoveType)
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
@@ -75,8 +75,9 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "King":
-                    if (Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100 && ChessMoveType)
-                        ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                    if (Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100)
+                        if(ChessMoveType)
+                            ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                     break;
             }
             if (Lock_objext != "Board" && ChessMen.transform.position.y > 0)
