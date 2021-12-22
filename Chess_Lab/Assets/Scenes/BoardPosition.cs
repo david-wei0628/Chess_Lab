@@ -41,7 +41,8 @@ namespace Chess.Board
                     {
                         if (ChessMensPosition[i].y == 0)
                         {
-
+                            if (ChessMensPosition[i].x == maps.x && ChessMensPosition[i].z == maps.z)
+                                ChessMoveRange = false;
                         }
                     }
                     break;
@@ -236,7 +237,7 @@ namespace Chess.Board
             BoardPositionII = new Vector3(-100, 0, 800);
             BoardPositionIII = new Vector3(-100, 0, -100);
             BoardPositionIV = new Vector3(800, 0, -100);
-            ChessMoveRange = false;
+            ChessMoveRange = true;
         }
     }
 }
