@@ -55,20 +55,20 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "Queen":
-                    if (maps.z == ChessMen.transform.position.z)
+                    if (ChessMoveType)
                     {
-                        if (ChessMoveType)
+                        if (maps.z == ChessMen.transform.position.z)
+                        {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
-                    }
-                    else if (maps.x == ChessMen.transform.position.x)
-                    {
-                        if (ChessMoveType)
+                        }
+                        else if (maps.x == ChessMen.transform.position.x)
+                        {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
-                    }
-                    if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == Mathf.Abs(maps.x - ChessMen.transform.position.x))
-                    {
-                        if (ChessMoveType)
+                        }
+                        if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == Mathf.Abs(maps.x - ChessMen.transform.position.x))
+                        {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                        }
                     }
                     break;
                 case "King":

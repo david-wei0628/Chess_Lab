@@ -31,7 +31,6 @@ public class Chess_Move : MonoBehaviour
             Select_Ray();
             SetChessColliderEnabled();
             ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition);
-            print(BoardPosition.BoardPositionRange(ChessMen, maps, WhiteChessposition));
             Lock_objext = "Board";
         }
 
