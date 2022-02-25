@@ -37,7 +37,8 @@ public class Chess_Move : MonoBehaviour
 
         if(Input.GetMouseButtonUp(2))
         {
-            show();
+            //show();
+            Debug.Log(ChessMen.tag);
         }
     }
     
@@ -119,7 +120,8 @@ public class Chess_Move : MonoBehaviour
         }
         else if(ChessMen.name[0] == 'B')
         {
-            Debug.Log(BlackChessposition.Length);
+            Debug.Log(this.name);
+            Debug.Log(this.GetComponentsInChildren<Collider>().Length);
         }
     }
 }

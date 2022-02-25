@@ -15,7 +15,7 @@ namespace Chess.ChessMen
             switch (ChessMen.tag)
             {
                 case "Pawn":
-                    if (ChessMen.transform.position.x == maps.x && ChessMoveType)
+                    if (ChessMen.transform.position.x == maps.x && ChessMoveType && ChessMen.name[0] == 'W')
                     {
                         if (ChessMen.transform.position.z == 100)
                         {
@@ -23,6 +23,16 @@ namespace Chess.ChessMen
                                 ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1.0f);
                         }
                         else if (maps.z - ChessMen.transform.position.z == 100)
+                            ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1.0f);
+                    }
+                    else if (ChessMen.transform.position.x == maps.x && ChessMoveType && ChessMen.name[0] == 'B')
+                    {
+                        if (ChessMen.transform.position.z == 600)
+                        {
+                            if (maps.z - ChessMen.transform.position.z == -200 || maps.z - ChessMen.transform.position.z == -100)
+                                ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1.0f);
+                        }
+                        else if (maps.z - ChessMen.transform.position.z == -100)
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1.0f);
                     }
                     break;

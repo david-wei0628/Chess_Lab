@@ -404,6 +404,10 @@ PrefabInstance:
       value: Black_Pawn_4
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_TagString
       value: Pawn
       objectReference: {fileID: 0}
@@ -472,6 +476,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 9872e0b509ff2d04299e3fe92e0deacc, type: 3}
       propertyPath: m_Name
       value: Black_Bishop_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 9872e0b509ff2d04299e3fe92e0deacc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9872e0b509ff2d04299e3fe92e0deacc, type: 3}
       propertyPath: m_TagString
@@ -848,6 +856,10 @@ PrefabInstance:
       value: Black_Rook_2
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 4c7fefe9f4d55e44398c01a6266ef093, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4c7fefe9f4d55e44398c01a6266ef093, type: 3}
       propertyPath: m_TagString
       value: Rook
       objectReference: {fileID: 0}
@@ -916,6 +928,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_Name
       value: Black_Pawn_7
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_TagString
@@ -1178,6 +1194,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_Name
       value: Black_Pawn_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_TagString
@@ -1722,6 +1742,10 @@ PrefabInstance:
       value: Black_Pawn_1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_TagString
       value: Pawn
       objectReference: {fileID: 0}
@@ -1958,6 +1982,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_Name
       value: Black_Pawn_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_TagString
@@ -2291,6 +2319,10 @@ PrefabInstance:
       value: Black_Pawn_5
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_TagString
       value: Pawn
       objectReference: {fileID: 0}
@@ -2359,6 +2391,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 0d4dc18442ed9d14698239a5a964f27f, type: 3}
       propertyPath: m_Name
       value: Black_King
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0d4dc18442ed9d14698239a5a964f27f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 0d4dc18442ed9d14698239a5a964f27f, type: 3}
       propertyPath: m_TagString
@@ -2922,6 +2958,10 @@ PrefabInstance:
       value: Black_Knight_2
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 3d375d4a1907b3f4098bb64446492fed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3d375d4a1907b3f4098bb64446492fed, type: 3}
       propertyPath: m_TagString
       value: Knight
       objectReference: {fileID: 0}
@@ -3096,6 +3136,10 @@ PrefabInstance:
       value: Black_Knight_1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 3d375d4a1907b3f4098bb64446492fed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3d375d4a1907b3f4098bb64446492fed, type: 3}
       propertyPath: m_TagString
       value: Knight
       objectReference: {fileID: 0}
@@ -3257,6 +3301,10 @@ PrefabInstance:
       value: Black_Pawn_3
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
       propertyPath: m_TagString
       value: Pawn
       objectReference: {fileID: 0}
@@ -3325,6 +3373,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 8d213db23e89f6b4fa3d427f07a32b13, type: 3}
       propertyPath: m_Name
       value: Black_Queen
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8d213db23e89f6b4fa3d427f07a32b13, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 8d213db23e89f6b4fa3d427f07a32b13, type: 3}
       propertyPath: m_TagString
