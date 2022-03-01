@@ -9,9 +9,9 @@ namespace Chess.ChessMen
         BoardPosition BoardPosition = new BoardPosition();
         bool ChessMoveType;
 
-        public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext,Vector3[] ChessMensPosition)
+        public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext,Vector3[] WhiteChessPosition,Vector3[] BlackChessPosition)
         {
-            ChessMoveType = BoardPosition.BoardPositionRange(ChessMen, maps, ChessMensPosition);
+            ChessMoveType = BoardPosition.BoardPositionRange(ChessMen, maps, WhiteChessPosition, BlackChessPosition);
             switch (ChessMen.tag)
             {
                 case "Pawn":

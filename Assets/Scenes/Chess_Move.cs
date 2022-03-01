@@ -31,20 +31,19 @@ public class Chess_Move : MonoBehaviour
         {
             Select_Ray();
             SetChessColliderEnabled();
-            ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition);
+            ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition, BlackChessposition);
             Lock_objext = "Board";
         }
 
         if(Input.GetMouseButtonUp(2))
         {
-            //show();
-            Debug.Log(ChessMen.tag);
+            show();
         }
     }
     
 
     /// <summary>
-    /// 基礎完成後，此方法轉到ChessMen_Move.cs使用，因為有雙色棋用同方法    
+    /// 黑白棋使用同方法，棋色差異無影響    
     /// </summary>
     void Select_Chess()
     {
@@ -75,30 +74,27 @@ public class Chess_Move : MonoBehaviour
         ray = main_camear.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit, 3500);
         maps = hit.point;
-        //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.9f, true);
+        Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.9f, true);
         Coordinate_correction();
         return Physics.Raycast(ray, out hit, 3500);
     }
     /// <summary>
-    /// 基礎完成後，此方法轉到ChessMen_Move.cs使用，因為有雙色棋用同方法
+    /// 黑白棋統一碰撞體狀態
     /// </summary>
     void SetChessColliderEnabled()
     {
-        if(this.name[9] == 'W')
+        int blackstar = 0;
+        for (int i = 0; i < this.GetComponentsInChildren<Collider>().Length; i++)
         {
-            for (int i = 0; i < this.GetComponentsInChildren<Collider>().Length; i++)
+            this.GetComponentsInChildren<Collider>()[i].enabled = !this.GetComponentsInChildren<Collider>()[i].enabled;
+            if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'W')
             {
-                this.GetComponentsInChildren<Collider>()[i].enabled = !this.GetComponentsInChildren<Collider>()[i].enabled;
                 WhiteChessposition[i] = this.GetComponentsInChildren<Collider>()[i].transform.position;
+                blackstar++;
             }
-        }
-        //Debug.Log(this.GetComponentsInChildren<Collider>().Length + this.name);
-        if(this.name[9] == 'B')
-        {
-            for (int i = 0; i < this.GetComponentsInChildren<Collider>().Length && this.name[9] == 'B'; i++)
+            if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'B')
             {
-                this.GetComponentsInChildren<Collider>()[i].enabled = !this.GetComponentsInChildren<Collider>()[i].enabled;
-                BlackChessposition[i] = this.GetComponentsInChildren<Collider>()[i].transform.position;
+                BlackChessposition[i - blackstar] = this.GetComponentsInChildren<Collider>()[i].transform.position;
             }
         }
     }
@@ -116,12 +112,11 @@ public class Chess_Move : MonoBehaviour
 
         if(ChessMen.name[0] == 'W')
         {
-            Debug.Log(WhiteChessposition.Length);
+            Debug.Log(ChessMen.GetComponentInParent<Collider>().name);
         }
         else if(ChessMen.name[0] == 'B')
         {
-            Debug.Log(this.name);
-            Debug.Log(this.GetComponentsInChildren<Collider>().Length);
+            Debug.Log(ChessMen.GetComponentInParent<Collider>().name);
         }
     }
 }
