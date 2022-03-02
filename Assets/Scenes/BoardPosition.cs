@@ -16,19 +16,19 @@ namespace Chess.Board
        Vector3 BoardPositionIV;
         bool ChessMoveRange;
 
-       public bool BoardPositionRange(GameObject ChessMen, Vector3 maps, Vector3[] WhiteChessPosition, Vector3[] BlackChessPosition)
+       public bool BoardPositionRange(GameObject ChessMen, Vector3 maps, Vector3[] OwnPawn, Vector3[] EnemyPawn)
         {
            BoardPositionReset();
            switch (ChessMen.tag)
             {
                 case "Pawn":
-                    for(int i=0;i<WhiteChessPosition.Length;i++)
+                    for(int i=0;i<OwnPawn.Length;i++)
                     {
-                        if(WhiteChessPosition[i].y == 0)
+                        if(OwnPawn[i].y == 0)
                         {
-                            if (WhiteChessPosition[i].x == ChessMen.transform.position.x)
-                                if (WhiteChessPosition[i].z < BoardPositionZMax.z && WhiteChessPosition[i].z > ChessMen.transform.position.z)
-                                    BoardPositionZMax = WhiteChessPosition[i];
+                            if (OwnPawn[i].x == ChessMen.transform.position.x)
+                                if (OwnPawn[i].z < BoardPositionZMax.z && OwnPawn[i].z > ChessMen.transform.position.z)
+                                    BoardPositionZMax = OwnPawn[i];
                         }    
                     }
                     if (BoardPositionZMax.z > maps.z && ChessMen.transform.position.x == maps.x)
@@ -37,33 +37,33 @@ namespace Chess.Board
                         ChessMoveRange = false;
                     break;
                 case "Knight":
-                    for (int i = 0; i < WhiteChessPosition.Length; i++)
+                    for (int i = 0; i < OwnPawn.Length; i++)
                     {
-                        if (WhiteChessPosition[i].y == 0)
+                        if (OwnPawn[i].y == 0)
                         {
-                            if (WhiteChessPosition[i].x == maps.x && WhiteChessPosition[i].z == maps.z)
+                            if (OwnPawn[i].x == maps.x && OwnPawn[i].z == maps.z)
                                 ChessMoveRange = false;
                         }
                     }
                     break;
                 case "Rook":
-                    for(int i =0;i<WhiteChessPosition.Length;i++)
+                    for(int i =0;i<OwnPawn.Length;i++)
                     {
-                        if(WhiteChessPosition[i].y == 0)
+                        if(OwnPawn[i].y == 0)
                         {
-                            if(WhiteChessPosition[i].z == ChessMen.transform.position.z)
+                            if(OwnPawn[i].z == ChessMen.transform.position.z)
                             {
-                                if (WhiteChessPosition[i].x < BoardPositionXMax.x && WhiteChessPosition[i].x > ChessMen.transform.position.x)
-                                    BoardPositionXMax = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].x > BoardPositionXMin.x && WhiteChessPosition[i].x < ChessMen.transform.position.x)
-                                    BoardPositionXMin = WhiteChessPosition[i];
+                                if (OwnPawn[i].x < BoardPositionXMax.x && OwnPawn[i].x > ChessMen.transform.position.x)
+                                    BoardPositionXMax = OwnPawn[i];
+                                if (OwnPawn[i].x > BoardPositionXMin.x && OwnPawn[i].x < ChessMen.transform.position.x)
+                                    BoardPositionXMin = OwnPawn[i];
                             }
-                            if(WhiteChessPosition[i].x == ChessMen.transform.position.x)
+                            if(OwnPawn[i].x == ChessMen.transform.position.x)
                             {
-                                if (WhiteChessPosition[i].z < BoardPositionZMax.z && WhiteChessPosition[i].z > ChessMen.transform.position.z)
-                                    BoardPositionZMax = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].z > BoardPositionZMin.z && WhiteChessPosition[i].z < ChessMen.transform.position.z)
-                                    BoardPositionZMin = WhiteChessPosition[i];
+                                if (OwnPawn[i].z < BoardPositionZMax.z && OwnPawn[i].z > ChessMen.transform.position.z)
+                                    BoardPositionZMax = OwnPawn[i];
+                                if (OwnPawn[i].z > BoardPositionZMin.z && OwnPawn[i].z < ChessMen.transform.position.z)
+                                    BoardPositionZMin = OwnPawn[i];
                             }
                         }
                     }
@@ -75,34 +75,34 @@ namespace Chess.Board
                         ChessMoveRange = false;
                     break;
                 case "bishop":
-                    for(int i =0;i<WhiteChessPosition.Length;i++)
+                    for(int i =0;i<OwnPawn.Length;i++)
                     {
-                        if(WhiteChessPosition[i].y == 0)
+                        if(OwnPawn[i].y == 0)
                         {
-                            if((WhiteChessPosition[i].x + WhiteChessPosition[i].z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
+                            if((OwnPawn[i].x + OwnPawn[i].z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                             {
-                                if(WhiteChessPosition[i].x < ChessMen.transform.position.x)
+                                if(OwnPawn[i].x < ChessMen.transform.position.x)
                                 {
-                                    if (WhiteChessPosition[i].x > BoardPositionII.x)
-                                        BoardPositionII = WhiteChessPosition[i];
+                                    if (OwnPawn[i].x > BoardPositionII.x)
+                                        BoardPositionII = OwnPawn[i];
                                 }
-                                if(WhiteChessPosition[i].x > ChessMen.transform.position.x)
+                                if(OwnPawn[i].x > ChessMen.transform.position.x)
                                 {
-                                    if(WhiteChessPosition[i].x <BoardPositionIV.x)
-                                        BoardPositionIV = WhiteChessPosition[i];
+                                    if(OwnPawn[i].x <BoardPositionIV.x)
+                                        BoardPositionIV = OwnPawn[i];
                                 }
                             }
-                            if ((WhiteChessPosition[i].x - WhiteChessPosition[i].z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
+                            if ((OwnPawn[i].x - OwnPawn[i].z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                             {
-                                if(WhiteChessPosition[i].x < ChessMen.transform.position.x)
+                                if(OwnPawn[i].x < ChessMen.transform.position.x)
                                 {
-                                    if(WhiteChessPosition[i].x > BoardPositionIII.x)
-                                        BoardPositionIII = WhiteChessPosition[i];
+                                    if(OwnPawn[i].x > BoardPositionIII.x)
+                                        BoardPositionIII = OwnPawn[i];
                                 }
-                                if(WhiteChessPosition[i].x > ChessMen.transform.position.x)
+                                if(OwnPawn[i].x > ChessMen.transform.position.x)
                                 {
-                                    if(WhiteChessPosition[i].x < BoardPositionI.x)
-                                        BoardPositionI = WhiteChessPosition[i];
+                                    if(OwnPawn[i].x < BoardPositionI.x)
+                                        BoardPositionI = OwnPawn[i];
                                 }
                             }
                         }
@@ -115,48 +115,48 @@ namespace Chess.Board
                         ChessMoveRange = false;
                     break;
                 case "Queen":
-                    for (int i = 0; i < WhiteChessPosition.Length; i++)
+                    for (int i = 0; i < OwnPawn.Length; i++)
                     {
-                        if (WhiteChessPosition[i].y == 0)
+                        if (OwnPawn[i].y == 0)
                         {
-                            if (WhiteChessPosition[i].z == ChessMen.transform.position.z)
+                            if (OwnPawn[i].z == ChessMen.transform.position.z)
                             {
-                                if (WhiteChessPosition[i].x < BoardPositionXMax.x && WhiteChessPosition[i].x > ChessMen.transform.position.x)
-                                    BoardPositionXMax = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].x > BoardPositionXMin.x && WhiteChessPosition[i].x < ChessMen.transform.position.x)
-                                    BoardPositionXMin = WhiteChessPosition[i];
+                                if (OwnPawn[i].x < BoardPositionXMax.x && OwnPawn[i].x > ChessMen.transform.position.x)
+                                    BoardPositionXMax = OwnPawn[i];
+                                if (OwnPawn[i].x > BoardPositionXMin.x && OwnPawn[i].x < ChessMen.transform.position.x)
+                                    BoardPositionXMin = OwnPawn[i];
                             }
-                            if (WhiteChessPosition[i].x == ChessMen.transform.position.x)
+                            if (OwnPawn[i].x == ChessMen.transform.position.x)
                             {
-                                if (WhiteChessPosition[i].z < BoardPositionZMax.z && WhiteChessPosition[i].z > ChessMen.transform.position.z)
-                                    BoardPositionZMax = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].z > BoardPositionZMin.z && WhiteChessPosition[i].z < ChessMen.transform.position.z)
-                                    BoardPositionZMin = WhiteChessPosition[i];
+                                if (OwnPawn[i].z < BoardPositionZMax.z && OwnPawn[i].z > ChessMen.transform.position.z)
+                                    BoardPositionZMax = OwnPawn[i];
+                                if (OwnPawn[i].z > BoardPositionZMin.z && OwnPawn[i].z < ChessMen.transform.position.z)
+                                    BoardPositionZMin = OwnPawn[i];
                             }
-                            if ((WhiteChessPosition[i].x + WhiteChessPosition[i].z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
+                            if ((OwnPawn[i].x + OwnPawn[i].z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                             {
-                                if (WhiteChessPosition[i].x < ChessMen.transform.position.x)
+                                if (OwnPawn[i].x < ChessMen.transform.position.x)
                                 {
-                                    if (WhiteChessPosition[i].x > BoardPositionII.x)
-                                        BoardPositionII = WhiteChessPosition[i];
+                                    if (OwnPawn[i].x > BoardPositionII.x)
+                                        BoardPositionII = OwnPawn[i];
                                 }
-                                if (WhiteChessPosition[i].x > ChessMen.transform.position.x)
+                                if (OwnPawn[i].x > ChessMen.transform.position.x)
                                 {
-                                    if (WhiteChessPosition[i].x < BoardPositionIV.x)
-                                        BoardPositionIV = WhiteChessPosition[i];
+                                    if (OwnPawn[i].x < BoardPositionIV.x)
+                                        BoardPositionIV = OwnPawn[i];
                                 }
                             }
-                            if ((WhiteChessPosition[i].x - WhiteChessPosition[i].z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
+                            if ((OwnPawn[i].x - OwnPawn[i].z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                             {
-                                if (WhiteChessPosition[i].x < ChessMen.transform.position.x)
+                                if (OwnPawn[i].x < ChessMen.transform.position.x)
                                 {
-                                    if (WhiteChessPosition[i].x > BoardPositionIII.x)
-                                        BoardPositionIII = WhiteChessPosition[i];
+                                    if (OwnPawn[i].x > BoardPositionIII.x)
+                                        BoardPositionIII = OwnPawn[i];
                                 }
-                                if (WhiteChessPosition[i].x > ChessMen.transform.position.x)
+                                if (OwnPawn[i].x > ChessMen.transform.position.x)
                                 {
-                                    if (WhiteChessPosition[i].x < BoardPositionI.x)
-                                        BoardPositionI = WhiteChessPosition[i];
+                                    if (OwnPawn[i].x < BoardPositionI.x)
+                                        BoardPositionI = OwnPawn[i];
                                 }
                             }
                         }
@@ -173,42 +173,42 @@ namespace Chess.Board
                         ChessMoveRange = false;   
                     break;
                 case "King":
-                    for (int i = 0; i < WhiteChessPosition.Length; i++)
+                    for (int i = 0; i < OwnPawn.Length; i++)
                     {
-                        if (WhiteChessPosition[i].y == 0)
+                        if (OwnPawn[i].y == 0)
                         {
-                            if(WhiteChessPosition[i].x == ChessMen.transform.position.x - 100)
+                            if(OwnPawn[i].x == ChessMen.transform.position.x - 100)
                             {
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z - 100)
-                                    if (BoardPositionIII.x < WhiteChessPosition[i].x)
-                                        BoardPositionIII = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z )
-                                    if (BoardPositionXMin.x < WhiteChessPosition[i].x)
-                                        BoardPositionXMin = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z + 100)
-                                    if (BoardPositionII.x < WhiteChessPosition[i].x)
-                                        BoardPositionII = WhiteChessPosition[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z - 100)
+                                    if (BoardPositionIII.x < OwnPawn[i].x)
+                                        BoardPositionIII = OwnPawn[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z )
+                                    if (BoardPositionXMin.x < OwnPawn[i].x)
+                                        BoardPositionXMin = OwnPawn[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z + 100)
+                                    if (BoardPositionII.x < OwnPawn[i].x)
+                                        BoardPositionII = OwnPawn[i];
                             }
-                            if (WhiteChessPosition[i].x == ChessMen.transform.position.x)
+                            if (OwnPawn[i].x == ChessMen.transform.position.x)
                             {
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z - 100)
-                                    if (BoardPositionZMin.z < WhiteChessPosition[i].z)
-                                        BoardPositionZMin = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z + 100)
-                                    if (BoardPositionZMax.z > WhiteChessPosition[i].z)
-                                        BoardPositionZMax = WhiteChessPosition[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z - 100)
+                                    if (BoardPositionZMin.z < OwnPawn[i].z)
+                                        BoardPositionZMin = OwnPawn[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z + 100)
+                                    if (BoardPositionZMax.z > OwnPawn[i].z)
+                                        BoardPositionZMax = OwnPawn[i];
                             }
-                            if (WhiteChessPosition[i].x == ChessMen.transform.position.x + 100)
+                            if (OwnPawn[i].x == ChessMen.transform.position.x + 100)
                             {
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z - 100)
-                                    if (BoardPositionIV.x > WhiteChessPosition[i].x)
-                                        BoardPositionIV = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z)
-                                    if (BoardPositionXMax.x > WhiteChessPosition[i].x)
-                                        BoardPositionXMax = WhiteChessPosition[i];
-                                if (WhiteChessPosition[i].z == ChessMen.transform.position.z + 100)
-                                    if (BoardPositionI.x > WhiteChessPosition[i].x)
-                                        BoardPositionI = WhiteChessPosition[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z - 100)
+                                    if (BoardPositionIV.x > OwnPawn[i].x)
+                                        BoardPositionIV = OwnPawn[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z)
+                                    if (BoardPositionXMax.x > OwnPawn[i].x)
+                                        BoardPositionXMax = OwnPawn[i];
+                                if (OwnPawn[i].z == ChessMen.transform.position.z + 100)
+                                    if (BoardPositionI.x > OwnPawn[i].x)
+                                        BoardPositionI = OwnPawn[i];
                             }
                         }
                     }

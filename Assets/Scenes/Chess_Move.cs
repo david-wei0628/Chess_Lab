@@ -14,36 +14,50 @@ public class Chess_Move : MonoBehaviour
     public Camera main_camear;
     GameObject ChessMen;
     string Lock_objext;
+    char ChoosePawn='W';
     Vector3 maps;
     Vector3[] WhiteChessposition = new Vector3[16];
     Vector3[] BlackChessposition = new Vector3[16];
     Ray ray;
     RaycastHit hit;
     ChessMen_Move ChessMen_Move = new ChessMen_Move();
-    BoardPosition BoardPosition = new BoardPosition();
+    //BoardPosition BoardPosition = new BoardPosition();
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Lock_objext == "Board")
-            Select_Chess();
-        else if (Input.GetMouseButtonDown(0) && Lock_objext != "Board")
+        if (Input.GetMouseButtonDown(0))
         {
-            Select_Ray();
-            SetChessColliderEnabled();
-            ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition, BlackChessposition);
-            Lock_objext = "Board";
+            if (Lock_objext == "Board")
+                Select_Chess();
+            else if (Lock_objext != "Board")
+            {
+                Select_Ray();
+                SetChessColliderEnabled();
+                if(ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
+                {
+                    ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition, BlackChessposition);
+                    ChoosePawn = 'B';
+                }
+                else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
+                {
+                    ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,BlackChessposition, WhiteChessposition);
+                    ChoosePawn = 'W';
+                }
+                Lock_objext = "Board";
+            }
         }
 
         if(Input.GetMouseButtonUp(2))
         {
-            show();
+            //show();
+            Debug.Log(ChessMen.name + " " + Lock_objext);
         }
     }
     
 
     /// <summary>
-    /// 黑白棋使用同方法，棋色差異無影響    
+    /// 黑白棋使用同方法選則棋子，棋色差異無影響，加入判斷可選擇棋子顏色
     /// </summary>
     void Select_Chess()
     {
@@ -52,7 +66,7 @@ public class Chess_Move : MonoBehaviour
             SetChessColliderEnabled();
             ChessMen = GameObject.Find(hit.collider.name);
             Lock_objext = ChessMen.name;
-            if (Lock_objext != "Board")
+            if (Lock_objext != "Board" && ChessMen.name[0] == ChoosePawn)
                 ChessMen.transform.position = new Vector3(ChessMen.transform.position.x, ChessMen.transform.position.y + 50, ChessMen.transform.position.z);
         }
     }
@@ -101,14 +115,7 @@ public class Chess_Move : MonoBehaviour
 
     void show()
     {
-        //for(int i=0;i<WhiteChessposition.Length && ChessMen.name[0] == 'W';i++)
-        //{
-        //    Debug.Log("W + " +i+" "+WhiteChessposition[i]);
-        //}
-        //for(int i=0;i<BlackChessposition.Length && ChessMen.name[0] == 'B'; i++)
-        //{
-        //    Debug.Log("B + " +i+" "+BlackChessposition[i]);
-        //}
+        
 
         if(ChessMen.name[0] == 'W')
         {
