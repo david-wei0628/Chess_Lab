@@ -31,21 +31,7 @@ public class Chess_Move : MonoBehaviour
             if (Lock_objext == "Board")
                 Select_Chess();
             else if (Lock_objext != "Board")
-            {
-                Select_Ray();
-                SetChessColliderEnabled();
-                if(ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
-                {
-                    ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,WhiteChessposition, BlackChessposition);
-                    ChoosePawn = 'B';
-                }
-                else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
-                {
-                    ChessMen = ChessMen_Move.Select_Move(ChessMen,maps,Lock_objext,BlackChessposition, WhiteChessposition);
-                    ChoosePawn = 'W';
-                }
-                Lock_objext = "Board";
-            }
+                Move_Chess();
         }
 
         if(Input.GetMouseButtonUp(2))
@@ -55,7 +41,6 @@ public class Chess_Move : MonoBehaviour
         }
     }
     
-
     /// <summary>
     /// 黑白棋使用同方法選則棋子，棋色差異無影響，加入判斷可選擇棋子顏色
     /// </summary>
@@ -69,6 +54,26 @@ public class Chess_Move : MonoBehaviour
             if (Lock_objext != "Board" && ChessMen.name[0] == ChoosePawn)
                 ChessMen.transform.position = new Vector3(ChessMen.transform.position.x, ChessMen.transform.position.y + 50, ChessMen.transform.position.z);
         }
+    }
+
+    /// <summary>
+    /// 棋子選擇後移動，黑白棋交替選擇，要解決未選擇移動可換其他棋種移動
+    /// </summary>
+    void Move_Chess()
+    {
+        Select_Ray();
+        SetChessColliderEnabled();
+        if (ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
+        {
+            ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
+            ChoosePawn = 'B';
+        }
+        else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
+        {
+            ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
+            ChoosePawn = 'W';
+        }
+        Lock_objext = "Board";
     }
 
     /// <summary>
