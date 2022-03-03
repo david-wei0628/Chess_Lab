@@ -63,15 +63,18 @@ public class Chess_Move : MonoBehaviour
     {
         Select_Ray();
         SetChessColliderEnabled();
+        //ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
         if (ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
         {
+            if(ChessMen.transform.position.x != maps.x || ChessMen.transform.position.z != maps.z)
+                ChoosePawn = 'B';
             ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
-            ChoosePawn = 'B';
         }
         else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
         {
+            if (ChessMen.transform.position.x != maps.x || ChessMen.transform.position.z != maps.z)
+                ChoosePawn = 'W';
             ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
-            ChoosePawn = 'W';
         }
         Lock_objext = "Board";
     }
@@ -93,7 +96,10 @@ public class Chess_Move : MonoBehaviour
         ray = main_camear.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit, 3500);
         maps = hit.point;
-        Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.9f, true);
+        if(hit.collider.name[0] == 'W')
+            Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.blue, 0.5f, true);
+        else
+            Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.5f, true);
         Coordinate_correction();
         return Physics.Raycast(ray, out hit, 3500);
     }
