@@ -18,6 +18,7 @@ public class Chess_Move : MonoBehaviour
     Vector3 maps;
     Vector3[] WhiteChessposition = new Vector3[16];
     Vector3[] BlackChessposition = new Vector3[16];
+    Vector3 ChossChess;
     Ray ray;
     RaycastHit hit;
     ChessMen_Move ChessMen_Move = new ChessMen_Move();
@@ -37,7 +38,7 @@ public class Chess_Move : MonoBehaviour
         if(Input.GetMouseButtonUp(2))
         {
             //show();
-            Debug.Log(ChessMen.name + " " + Lock_objext);
+            Debug.Log(Lock_objext);
         }
     }
     
@@ -63,18 +64,19 @@ public class Chess_Move : MonoBehaviour
     {
         Select_Ray();
         SetChessColliderEnabled();
-        //ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
+        ChossChess = ChessMen.transform.position;
+        ChossChess.y = 0;
         if (ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
         {
-            if(ChessMen.transform.position.x != maps.x || ChessMen.transform.position.z != maps.z)
-                ChoosePawn = 'B';
             ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
+            if (ChossChess != ChessMen.transform.position)
+                ChoosePawn = 'B'; 
         }
         else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
         {
-            if (ChessMen.transform.position.x != maps.x || ChessMen.transform.position.z != maps.z)
-                ChoosePawn = 'W';
             ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
+            if (ChossChess != ChessMen.transform.position)
+                ChoosePawn = 'W';
         }
         Lock_objext = "Board";
     }
