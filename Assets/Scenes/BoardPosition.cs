@@ -88,16 +88,16 @@ namespace Chess.Board
                         if (EnemyPawn[i].z == ChessMen.transform.position.z)
                         {
                             if (EnemyPawn[i].x < BoardPositionXMax.x && EnemyPawn[i].x > ChessMen.transform.position.x)
-                                BoardPositionXMax = EnemyPawn[i];
+                                BoardPositionXMax.x = EnemyPawn[i].x + 100;
                             if (EnemyPawn[i].x > BoardPositionXMin.x && EnemyPawn[i].x < ChessMen.transform.position.x)
-                                BoardPositionXMin = EnemyPawn[i];
+                                BoardPositionXMin.x = EnemyPawn[i].x - 100;
                         }
                         if (EnemyPawn[i].x == ChessMen.transform.position.x)
                         {
                             if (EnemyPawn[i].z < BoardPositionZMax.z && EnemyPawn[i].z > ChessMen.transform.position.z)
-                                BoardPositionZMax = EnemyPawn[i];
+                                BoardPositionZMax.z = EnemyPawn[i].z + 100;
                             if (EnemyPawn[i].z > BoardPositionZMin.z && EnemyPawn[i].z < ChessMen.transform.position.z)
-                                BoardPositionZMin = EnemyPawn[i];
+                                BoardPositionZMin.z = EnemyPawn[i].z - 100;
                         }
                     }
 
