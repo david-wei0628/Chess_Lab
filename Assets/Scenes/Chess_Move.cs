@@ -98,10 +98,10 @@ public class Chess_Move : MonoBehaviour
         ray = main_camear.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit, 3500);
         maps = hit.point;
-        if(hit.collider.name[0] == 'W')
-            Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.blue, 0.5f, true);
-        else
-            Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.5f, true);
+        //if(hit.collider.name[0] == 'W')
+        //    Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.blue, 0.5f, true);
+        //else
+        //    Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.5f, true);
         Coordinate_correction();
         return Physics.Raycast(ray, out hit, 3500);
     }
