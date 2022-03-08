@@ -10,8 +10,9 @@ public class Chess_Move : MonoBehaviour
     void Start()
     {
         Lock_objext = "Board";
-        SetChessColliderEnabled();
+        //SetChessColliderEnabled();
     }
+
     public Camera main_camear;
     GameObject ChessMen;
     string Lock_objext;
@@ -23,7 +24,6 @@ public class Chess_Move : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     ChessMen_Move ChessMen_Move = new ChessMen_Move();
-    //BoardPosition BoardPosition = new BoardPosition();
 
     // Update is called once per frame
     void Update()
@@ -38,7 +38,7 @@ public class Chess_Move : MonoBehaviour
 
         if(Input.GetMouseButtonUp(2))
         {
-            //show();
+            show();
         }
     }
     
@@ -127,14 +127,7 @@ public class Chess_Move : MonoBehaviour
     }
 
     void show()
-    { 
-        if(ChessMen.name[0] == 'W')
-        {
-            Debug.Log(ChessMen.GetComponentInParent<Collider>().name);
-        }
-        else if(ChessMen.name[0] == 'B')
-        {
-            Debug.Log(ChessMen.GetComponentInParent<Collider>().name);
-        }
+    {
+        Debug.Log(BlackChessposition.Length);
     }
 }

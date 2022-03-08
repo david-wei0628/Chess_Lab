@@ -31,6 +31,15 @@ namespace Chess.Board
                                     BoardPositionZMax = OwnPawn[i].transform.position;
                         }    
                     }
+                    for(int i=0;i< EnemyPawn.Length;i++)
+                    {
+                        if(EnemyPawn[i].transform.position.y == 0)
+                        {
+                            if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x)
+                                if (EnemyPawn[i].transform.position.z < BoardPositionZMax.z && EnemyPawn[i].transform.position.z > ChessMen.transform.position.z)
+                                    BoardPositionZMax = EnemyPawn[i].transform.position;
+                        }    
+                    }
 
                     if (BoardPositionZMax.z > maps.z && ChessMen.transform.position.x == maps.x)
                         ChessMoveRange = true;
@@ -52,9 +61,11 @@ namespace Chess.Board
                         if (EnemyPawn[i].transform.position.y == 0)
                         {
                             if (EnemyPawn[i].transform.position.x == maps.x && EnemyPawn[i].transform.position.z == maps.z)
-                                ChessMoveRange = false;
+                                ChessMoveRange = true;
                         }
                     }
+
+                    EnemyPaenActive(maps, EnemyPawn);
                     break;
                 case "Rook":
                     for(int i =0;i<OwnPawn.Length;i++)
@@ -95,13 +106,14 @@ namespace Chess.Board
                         }
                     }
 
-                    EnemyPaenActive(maps, EnemyPawn);
                     if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
                         ChessMoveRange = true;
                     else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;
+
+                    EnemyPaenActive(maps, EnemyPawn);
                     break;
                 case "bishop":
                     for(int i =0;i<OwnPawn.Length;i++)
@@ -169,13 +181,14 @@ namespace Chess.Board
                         }
                     }
 
-                    EnemyPaenActive(maps, EnemyPawn);
                     if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                         ChessMoveRange = true;
                     else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;
+
+                    EnemyPaenActive(maps, EnemyPawn);
                     break;
                 case "Queen":
                     for (int i = 0; i < OwnPawn.Length; i++)
@@ -271,7 +284,6 @@ namespace Chess.Board
                         }
                     }
 
-                    EnemyPaenActive(maps, EnemyPawn);
                     if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
                         ChessMoveRange = true;
                     else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
@@ -282,6 +294,8 @@ namespace Chess.Board
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;   
+
+                    EnemyPaenActive(maps, EnemyPawn);
                     break;
                 case "King":
                     for (int i = 0; i < OwnPawn.Length; i++)
@@ -363,7 +377,6 @@ namespace Chess.Board
                         }
                     }
 
-                    EnemyPaenActive(maps, EnemyPawn);
                     if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
                         ChessMoveRange = true;
                     else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
@@ -374,9 +387,10 @@ namespace Chess.Board
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;
+
+                    EnemyPaenActive(maps, EnemyPawn);
                     break;
             }
-
             return ChessMoveRange;
         }
 
@@ -393,16 +407,15 @@ namespace Chess.Board
             ChessMoveRange = true;
         }
 
-        void EnemyPaenActive(Vector3 maps,GameObject[] EnemyPawn)
+        void EnemyPaenActive(Vector3 maps, GameObject[] EnemyPawn)
         {
             for (int i = 0; i < EnemyPawn.Length; i++)
             {
-                if (maps == EnemyPawn[i].transform.position)
+                if (maps == EnemyPawn[i].transform.position && ChessMoveRange)
                 {
-                    EnemyPawn[i].active = !EnemyPawn[i].active;
+                    EnemyPawn[i].transform.position = new Vector3(50*i, 0, 900);
                 }
             }
-
         }
     }
 }
