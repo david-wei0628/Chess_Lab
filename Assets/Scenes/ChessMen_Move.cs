@@ -7,9 +7,9 @@ namespace Chess.ChessMen
     public class ChessMen_Move
     {
         BoardPosition BoardPosition = new BoardPosition();
-        bool ChessMoveType;
+        bool ChessMoveType = true;
 
-        public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext,Vector3[] OwnPawn,Vector3[] EnemyPawn )
+        public GameObject Select_Move(GameObject ChessMen, Vector3 maps, string Lock_objext, GameObject[] OwnPawn, GameObject[] EnemyPawn )
         {
             ChessMoveType = BoardPosition.BoardPositionRange(ChessMen, maps, OwnPawn , EnemyPawn );
             switch (ChessMen.tag)

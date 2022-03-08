@@ -10,14 +10,15 @@ public class Chess_Move : MonoBehaviour
     void Start()
     {
         Lock_objext = "Board";
+        SetChessColliderEnabled();
     }
     public Camera main_camear;
     GameObject ChessMen;
     string Lock_objext;
     char ChoosePawn='W';
     Vector3 maps;
-    Vector3[] WhiteChessposition = new Vector3[16];
-    Vector3[] BlackChessposition = new Vector3[16];
+    GameObject[] WhiteChessposition = new GameObject[16];
+    GameObject[] BlackChessposition = new GameObject[16];
     Vector3 ChossChess;
     Ray ray;
     RaycastHit hit;
@@ -38,7 +39,6 @@ public class Chess_Move : MonoBehaviour
         if(Input.GetMouseButtonUp(2))
         {
             //show();
-            Debug.Log(Lock_objext);
         }
     }
     
@@ -116,20 +116,18 @@ public class Chess_Move : MonoBehaviour
             this.GetComponentsInChildren<Collider>()[i].enabled = !this.GetComponentsInChildren<Collider>()[i].enabled;
             if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'W')
             {
-                WhiteChessposition[i] = this.GetComponentsInChildren<Collider>()[i].transform.position;
+                WhiteChessposition[i] = this.GetComponentsInChildren<Collider>()[i].gameObject;
                 blackstar++;
             }
             if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'B')
             {
-                BlackChessposition[i - blackstar] = this.GetComponentsInChildren<Collider>()[i].transform.position;
+                BlackChessposition[i - blackstar]= this.GetComponentsInChildren<Collider>()[i].gameObject;
             }
         }
     }
 
     void show()
-    {
-        
-
+    { 
         if(ChessMen.name[0] == 'W')
         {
             Debug.Log(ChessMen.GetComponentInParent<Collider>().name);
