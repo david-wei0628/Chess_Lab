@@ -58,7 +58,7 @@ public class Chess_Move : MonoBehaviour
     }
 
     /// <summary>
-    /// 棋子選擇後移動，黑白棋交替選擇，要解決未選擇移動可換其他棋種移動
+    /// 棋子選擇後移動，黑白棋交替選擇
     /// </summary>
     void Move_Chess()
     {

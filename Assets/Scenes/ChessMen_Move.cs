@@ -89,6 +89,7 @@ namespace Chess.ChessMen
             if (Lock_objext != "Board" && ChessMen.transform.position.y > 0)
                 ChessMen.transform.position = new Vector3(ChessMen.transform.position.x, ChessMen.transform.position.y - 50, ChessMen.transform.position.z);
 
+            BoardPosition.EnemyPaenActive(ChessMen,EnemyPawn);
             return ChessMen;
         }
 
