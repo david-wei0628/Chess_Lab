@@ -128,6 +128,6 @@ public class Chess_Move : MonoBehaviour
 
     void show()
     {
-        Debug.Log(BlackChessposition.Length);
+       // Debug.Log(BlackChessposition);
     }
 }

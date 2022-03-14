@@ -35,6 +35,11 @@ namespace Chess.ChessMen
                         else if (maps.z - ChessMen.transform.position.z == -100)
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1.0f);
                     }
+
+                    if (BoardPosition.PawnCatch(ChessMen, EnemyPawn, maps))
+                    {
+                        ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1.0f);
+                    }
                     break;
                 case "Knight":
                     if (ChessMoveType)
@@ -89,7 +94,7 @@ namespace Chess.ChessMen
             if (Lock_objext != "Board" && ChessMen.transform.position.y > 0)
                 ChessMen.transform.position = new Vector3(ChessMen.transform.position.x, ChessMen.transform.position.y - 50, ChessMen.transform.position.z);
 
-            BoardPosition.EnemyPaenActive(ChessMen,EnemyPawn);
+            BoardPosition.EnemyPawnActive(ChessMen,EnemyPawn);
             return ChessMen;
         }
 
