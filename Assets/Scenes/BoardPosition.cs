@@ -347,6 +347,7 @@ namespace Chess.Board
                             }
                         }
                     }
+
                     for (int i = 0; i < EnemyPawn.Length; i++)
                     {
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x - 100)
@@ -425,7 +426,7 @@ namespace Chess.Board
             ChessMoveRange = true;
         }
 
-        public void EnemyPawnActive(GameObject ChessMen, GameObject[] EnemyPawn)
+       public void EnemyPawnActive(GameObject ChessMen, GameObject[] EnemyPawn)
         {
             for (int i = 0; i < EnemyPawn.Length; i++)
             {
@@ -441,7 +442,7 @@ namespace Chess.Board
             }
         }
         
-        public bool PawnCatch(GameObject ChessMen, GameObject[] EnemyPawn, Vector3 maps)
+       public bool PawnCatch(GameObject ChessMen, GameObject[] EnemyPawn, Vector3 maps)
         {
             if (ChessMen.name[0] == 'W')
             {

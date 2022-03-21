@@ -40,6 +40,11 @@ namespace Chess.ChessMen
                     {
                         ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1.0f);
                     }
+
+                    if (ChessMen.transform.position.z == 700 || ChessMen.transform.position.z == 0)
+                    {
+                        PawnPromotion(ChessMen);
+                    }
                     break;
                 case "Knight":
                     if (ChessMoveType)
@@ -98,6 +103,10 @@ namespace Chess.ChessMen
             return ChessMen;
         }
 
+        void PawnPromotion(GameObject ChessMen)
+        {
+            ChessMen.tag = "Queen";
+        }
     }
 
 }

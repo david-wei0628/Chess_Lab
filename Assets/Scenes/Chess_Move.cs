@@ -70,13 +70,20 @@ public class Chess_Move : MonoBehaviour
         {
             ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
             if (ChossChess != ChessMen.transform.position)
-                ChoosePawn = 'B'; 
+            {
+                ChoosePawn = 'B';
+                Invoke("Camear_trans",0.5f);
+                //Camear_trans();
+            }
         }
         else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
         {
             ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
             if (ChossChess != ChessMen.transform.position)
+            {
                 ChoosePawn = 'W';
+                Invoke("Camear_trans", 0.5f);
+            }
         }
         Lock_objext = "Board";
     }
@@ -126,8 +133,22 @@ public class Chess_Move : MonoBehaviour
         }
     }
 
+    void Camear_trans()
+    {
+        if (ChoosePawn == 'W')
+        {
+            main_camear.transform.position = new Vector3(350, 700, -400);
+            main_camear.transform.rotation = Quaternion.Euler(45, 0, 0);
+        }
+        else if(ChoosePawn == 'B')
+        {
+            main_camear.transform.position = new Vector3(350, 700, 1100);
+            main_camear.transform.rotation = Quaternion.Euler(45, 180, 0);
+        }
+    }
+
     void show()
     {
-       // Debug.Log(BlackChessposition);
+        Debug.Log(ChessMen.transform.position);
     }
 }
