@@ -43,7 +43,7 @@ namespace Chess.ChessMen
 
                     if (ChessMen.transform.position.z == 700 || ChessMen.transform.position.z == 0)
                     {
-                        PawnPromotion(ChessMen);
+                        PawnPromotion(ChessMen, OwnPawn);
                     }
                     break;
                 case "Knight":
@@ -103,9 +103,10 @@ namespace Chess.ChessMen
             return ChessMen;
         }
 
-        void PawnPromotion(GameObject ChessMen)
+        void PawnPromotion(GameObject ChessMen, GameObject[] OwnPawn)
         {
             ChessMen.tag = "Queen";
+            ChessMen.GetComponent<MeshFilter>().sharedMesh = BoardPosition.PawnUp(ChessMen,OwnPawn);
         }
     }
 

@@ -473,5 +473,16 @@ namespace Chess.Board
 
             return false;
         }
+
+        public Mesh PawnUp(GameObject ChessMen, GameObject[] OwnPawn)
+        {
+            Mesh Queen = ChessMen.GetComponent<Mesh>();
+            for(int i = 0; i < OwnPawn.Length; i++)
+            {
+                if(OwnPawn[i].tag == "Queen")
+                    return OwnPawn[i].GetComponent<MeshFilter>().mesh;
+            }
+            return Queen;
+        }
     }
 }

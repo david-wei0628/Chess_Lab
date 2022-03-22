@@ -36,10 +36,10 @@ public class Chess_Move : MonoBehaviour
                 Move_Chess();
         }
 
-        if(Input.GetMouseButtonUp(2))
-        {
-            show();
-        }
+        //if (Input.GetMouseButtonUp(2))
+        //{
+        //    show();
+        //}
     }
     
     /// <summary>
@@ -149,6 +149,7 @@ public class Chess_Move : MonoBehaviour
 
     void show()
     {
-        Debug.Log(ChessMen.transform.position);
+        Debug.Log(ChessMen.GetComponent<MeshFilter>().mesh);
+        //ChessMen.GetComponent<MeshFilter>().sharedMesh = BoardPosition.PawnUp(ChessMen, WhiteChessposition); 
     }
 }
