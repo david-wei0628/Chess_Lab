@@ -16,7 +16,7 @@ public class Chess_Move : MonoBehaviour
     public Camera main_camear;
     GameObject ChessMen;
     string Lock_objext;
-    char ChoosePawn='W';
+    char ChoosePawn = 'W';
     Vector3 maps;
     GameObject[] WhiteChessposition = new GameObject[16];
     GameObject[] BlackChessposition = new GameObject[16];
@@ -31,9 +31,9 @@ public class Chess_Move : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (Lock_objext == "Board")
-                Select_Chess();
+                SelectChess();
             else if (Lock_objext != "Board")
-                Move_Chess();
+                MoveChess();
         }
 
         //if (Input.GetMouseButtonUp(2))
@@ -41,13 +41,13 @@ public class Chess_Move : MonoBehaviour
         //    show();
         //}
     }
-    
+
     /// <summary>
     /// 黑白棋使用同方法選則棋子，棋色差異無影響，加入判斷可選擇棋子顏色
     /// </summary>
-    void Select_Chess()
+    void SelectChess()
     {
-        if (Select_Ray())
+        if (SelectRay())
         {
             SetChessColliderEnabled();
             ChessMen = GameObject.Find(hit.collider.name);
@@ -60,29 +60,28 @@ public class Chess_Move : MonoBehaviour
     /// <summary>
     /// 棋子選擇後移動，黑白棋交替選擇
     /// </summary>
-    void Move_Chess()
+    void MoveChess()
     {
-        Select_Ray();
+        SelectRay();
         SetChessColliderEnabled();
         ChossChess = ChessMen.transform.position;
         ChossChess.y = 0;
         if (ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
         {
-            ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
+            ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
             if (ChossChess != ChessMen.transform.position)
             {
                 ChoosePawn = 'B';
-                Invoke("Camear_trans",0.5f);
-                //Camear_trans();
+                Invoke("CamearTrans", 0.5f);
             }
         }
         else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
         {
-            ChessMen = ChessMen_Move.Select_Move(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
+            ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
             if (ChossChess != ChessMen.transform.position)
             {
                 ChoosePawn = 'W';
-                Invoke("Camear_trans", 0.5f);
+                Invoke("CamearTrans", 0.5f);
             }
         }
         Lock_objext = "Board";
@@ -91,7 +90,7 @@ public class Chess_Move : MonoBehaviour
     /// <summary>
     /// 棋盤座標棋格中心校準
     /// </summary>
-    void Coordinate_correction()
+    void CoordinateCorrection()
     {
         maps.x = maps.x + 50;
         maps.x = maps.x - (maps.x % 100);
@@ -100,7 +99,7 @@ public class Chess_Move : MonoBehaviour
         maps.y = 0;
     }
 
-    bool Select_Ray()
+    bool SelectRay()
     {
         ray = main_camear.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         Physics.Raycast(ray, out hit, 3500);
@@ -109,9 +108,10 @@ public class Chess_Move : MonoBehaviour
         //    Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.blue, 0.5f, true);
         //else
         //    Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.5f, true);
-        Coordinate_correction();
+        CoordinateCorrection();
         return Physics.Raycast(ray, out hit, 3500);
     }
+
     /// <summary>
     /// 黑白棋統一碰撞體狀態
     /// </summary>
@@ -128,19 +128,19 @@ public class Chess_Move : MonoBehaviour
             }
             if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'B')
             {
-                BlackChessposition[i - blackstar]= this.GetComponentsInChildren<Collider>()[i].gameObject;
+                BlackChessposition[i - blackstar] = this.GetComponentsInChildren<Collider>()[i].gameObject;
             }
         }
     }
 
-    void Camear_trans()
+    void CamearTrans()
     {
         if (ChoosePawn == 'W')
         {
             main_camear.transform.position = new Vector3(350, 700, -400);
             main_camear.transform.rotation = Quaternion.Euler(45, 0, 0);
         }
-        else if(ChoosePawn == 'B')
+        else if (ChoosePawn == 'B')
         {
             main_camear.transform.position = new Vector3(350, 700, 1100);
             main_camear.transform.rotation = Quaternion.Euler(45, 180, 0);

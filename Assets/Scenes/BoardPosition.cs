@@ -6,36 +6,40 @@ namespace Chess.Board
 {
     public class BoardPosition
     {
-       Vector3 BoardPositionXMax;
-       Vector3 BoardPositionXMin;
-       Vector3 BoardPositionZMax;
-       Vector3 BoardPositionZMin;
-       Vector3 BoardPositionI;
-       Vector3 BoardPositionII;
-       Vector3 BoardPositionIII;
-       Vector3 BoardPositionIV;
-       bool ChessMoveRange;
+        Vector3 BoardPositionXMax;
+        Vector3 BoardPositionXMin;
+        Vector3 BoardPositionZMax;
+        Vector3 BoardPositionZMin;
+        Vector3 BoardPositionI;
+        Vector3 BoardPositionII;
+        Vector3 BoardPositionIII;
+        Vector3 BoardPositionIV;
+        bool ChessMoveRange;
 
-       public bool BoardPositionRange(GameObject ChessMen, Vector3 maps, GameObject[] OwnPawn, GameObject[] EnemyPawn)
+        public bool BoardPositionRange(GameObject ChessMen, Vector3 maps, GameObject[] OwnPawn, GameObject[] EnemyPawn)
         {
-           BoardPositionReset();
-           switch (ChessMen.tag)
+            BoardPositionReset();
+            switch (ChessMen.tag)
             {
                 case "Pawn":
-                    for(int i=0;i<OwnPawn.Length;i++)
+                    for (int i = 0; i < OwnPawn.Length; i++)
                     {
-                        if(OwnPawn[i].transform.position.y == 0)
+                        if (OwnPawn[i].transform.position.y == 0)
                         {
                             if (OwnPawn[i].transform.position.x == ChessMen.transform.position.x)
                             {
                                 if (OwnPawn[i].transform.position.z < BoardPositionZMax.z && OwnPawn[i].transform.position.z > ChessMen.transform.position.z)
+                                {
                                     BoardPositionZMax = OwnPawn[i].transform.position;
+                                }
                                 if (OwnPawn[i].transform.position.z > BoardPositionZMin.z && OwnPawn[i].transform.position.z < ChessMen.transform.position.z)
+                                {
                                     BoardPositionZMin = OwnPawn[i].transform.position;
+                                }
                             }
-                        }    
+                        }
                     }
-                    for(int i=0;i< EnemyPawn.Length;i++)
+                    for (int i = 0; i < EnemyPawn.Length; i++)
                     {
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x)
                         {
@@ -63,23 +67,31 @@ namespace Chess.Board
 
                     break;
                 case "Rook":
-                    for(int i = 0 ; i < OwnPawn.Length; i++)
+                    for (int i = 0; i < OwnPawn.Length; i++)
                     {
-                        if(OwnPawn[i].transform.position.y == 0)
+                        if (OwnPawn[i].transform.position.y == 0)
                         {
-                            if(OwnPawn[i].transform.position.z == ChessMen.transform.position.z)
+                            if (OwnPawn[i].transform.position.z == ChessMen.transform.position.z)
                             {
                                 if (OwnPawn[i].transform.position.x < BoardPositionXMax.x && OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
+                                {
                                     BoardPositionXMax = OwnPawn[i].transform.position;
+                                }
                                 if (OwnPawn[i].transform.position.x > BoardPositionXMin.x && OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
+                                {
                                     BoardPositionXMin = OwnPawn[i].transform.position;
+                                }
                             }
-                            if(OwnPawn[i].transform.position.x == ChessMen.transform.position.x)
+                            if (OwnPawn[i].transform.position.x == ChessMen.transform.position.x)
                             {
                                 if (OwnPawn[i].transform.position.z < BoardPositionZMax.z && OwnPawn[i].transform.position.z > ChessMen.transform.position.z)
+                                {
                                     BoardPositionZMax = OwnPawn[i].transform.position;
+                                }
                                 if (OwnPawn[i].transform.position.z > BoardPositionZMin.z && OwnPawn[i].transform.position.z < ChessMen.transform.position.z)
+                                {
                                     BoardPositionZMin = OwnPawn[i].transform.position;
+                                }
                             }
                         }
                     }
@@ -88,16 +100,24 @@ namespace Chess.Board
                         if (EnemyPawn[i].transform.position.z == ChessMen.transform.position.z)
                         {
                             if (EnemyPawn[i].transform.position.x < BoardPositionXMax.x && EnemyPawn[i].transform.position.x > ChessMen.transform.position.x)
+                            {
                                 BoardPositionXMax.x = EnemyPawn[i].transform.position.x + 100;
+                            }
                             if (EnemyPawn[i].transform.position.x > BoardPositionXMin.x && EnemyPawn[i].transform.position.x < ChessMen.transform.position.x)
+                            {
                                 BoardPositionXMin.x = EnemyPawn[i].transform.position.x - 100;
+                            }
                         }
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x)
                         {
                             if (EnemyPawn[i].transform.position.z < BoardPositionZMax.z && EnemyPawn[i].transform.position.z > ChessMen.transform.position.z)
+                            {
                                 BoardPositionZMax.z = EnemyPawn[i].transform.position.z + 100;
+                            }
                             if (EnemyPawn[i].transform.position.z > BoardPositionZMin.z && EnemyPawn[i].transform.position.z < ChessMen.transform.position.z)
+                            {
                                 BoardPositionZMin.z = EnemyPawn[i].transform.position.z - 100;
+                            }
                         }
                     }
 
@@ -107,42 +127,50 @@ namespace Chess.Board
                         ChessMoveRange = true;
                     else
                         ChessMoveRange = false;
-                    
+
                     break;
                 case "bishop":
-                    for(int i =0;i<OwnPawn.Length;i++)
+                    for (int i = 0; i < OwnPawn.Length; i++)
                     {
-                        if(OwnPawn[i].transform.position.y == 0)
+                        if (OwnPawn[i].transform.position.y == 0)
                         {
-                            if((OwnPawn[i].transform.position.x + OwnPawn[i].transform.position.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
+                            if ((OwnPawn[i].transform.position.x + OwnPawn[i].transform.position.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                             {
-                                if(OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
+                                if (OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
                                 {
                                     if (OwnPawn[i].transform.position.x > BoardPositionII.x)
+                                    {
                                         BoardPositionII = OwnPawn[i].transform.position;
+                                    }
                                 }
-                                if(OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
+                                if (OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
                                 {
-                                    if(OwnPawn[i].transform.position.x <BoardPositionIV.x)
+                                    if (OwnPawn[i].transform.position.x < BoardPositionIV.x)
+                                    {
                                         BoardPositionIV = OwnPawn[i].transform.position;
+                                    }
                                 }
                             }
                             if ((OwnPawn[i].transform.position.x - OwnPawn[i].transform.position.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                             {
-                                if(OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
+                                if (OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
                                 {
-                                    if(OwnPawn[i].transform.position.x > BoardPositionIII.x)
+                                    if (OwnPawn[i].transform.position.x > BoardPositionIII.x)
+                                    {
                                         BoardPositionIII = OwnPawn[i].transform.position;
+                                    }
                                 }
-                                if(OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
+                                if (OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
                                 {
-                                    if(OwnPawn[i].transform.position.x < BoardPositionI.x)
+                                    if (OwnPawn[i].transform.position.x < BoardPositionI.x)
+                                    {
                                         BoardPositionI = OwnPawn[i].transform.position;
+                                    }
                                 }
                             }
                         }
                     }
-                    for(int i =0;i< EnemyPawn.Length;i++)
+                    for (int i = 0; i < EnemyPawn.Length; i++)
                     {
                         if ((EnemyPawn[i].transform.position.x + EnemyPawn[i].transform.position.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                         {
@@ -200,28 +228,40 @@ namespace Chess.Board
                             if (OwnPawn[i].transform.position.z == ChessMen.transform.position.z)
                             {
                                 if (OwnPawn[i].transform.position.x < BoardPositionXMax.x && OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
+                                {
                                     BoardPositionXMax.x = OwnPawn[i].transform.position.x + 100;
+                                }
                                 if (OwnPawn[i].transform.position.x > BoardPositionXMin.x && OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
+                                {
                                     BoardPositionXMin.x = OwnPawn[i].transform.position.x - 100;
+                                }
                             }
                             if (OwnPawn[i].transform.position.x == ChessMen.transform.position.x)
                             {
                                 if (OwnPawn[i].transform.position.z < BoardPositionZMax.z && OwnPawn[i].transform.position.z > ChessMen.transform.position.z)
+                                {
                                     BoardPositionZMax.z = OwnPawn[i].transform.position.z + 100;
+                                }
                                 if (OwnPawn[i].transform.position.z > BoardPositionZMin.z && OwnPawn[i].transform.position.z < ChessMen.transform.position.z)
+                                {
                                     BoardPositionZMin.z = OwnPawn[i].transform.position.z - 100;
+                                }
                             }
                             if ((OwnPawn[i].transform.position.x + OwnPawn[i].transform.position.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                             {
                                 if (OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
                                 {
                                     if (OwnPawn[i].transform.position.x > BoardPositionII.x)
+                                    {
                                         BoardPositionII = OwnPawn[i].transform.position;
+                                    }
                                 }
                                 if (OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
                                 {
                                     if (OwnPawn[i].transform.position.x < BoardPositionIV.x)
+                                    {
                                         BoardPositionIV = OwnPawn[i].transform.position;
+                                    }
                                 }
                             }
                             if ((OwnPawn[i].transform.position.x - OwnPawn[i].transform.position.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
@@ -229,12 +269,16 @@ namespace Chess.Board
                                 if (OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
                                 {
                                     if (OwnPawn[i].transform.position.x > BoardPositionIII.x)
+                                    {
                                         BoardPositionIII = OwnPawn[i].transform.position;
+                                    }
                                 }
                                 if (OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
                                 {
                                     if (OwnPawn[i].transform.position.x < BoardPositionI.x)
+                                    {
                                         BoardPositionI = OwnPawn[i].transform.position;
+                                    }
                                 }
                             }
                         }
@@ -244,16 +288,24 @@ namespace Chess.Board
                         if (EnemyPawn[i].transform.position.z == ChessMen.transform.position.z)
                         {
                             if (EnemyPawn[i].transform.position.x < BoardPositionXMax.x && EnemyPawn[i].transform.position.x > ChessMen.transform.position.x)
+                            {
                                 BoardPositionXMax.x = EnemyPawn[i].transform.position.x + 100;
+                            }
                             if (EnemyPawn[i].transform.position.x > BoardPositionXMin.x && EnemyPawn[i].transform.position.x < ChessMen.transform.position.x)
+                            {
                                 BoardPositionXMin.x = EnemyPawn[i].transform.position.x - 100;
+                            }
                         }
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x)
                         {
                             if (EnemyPawn[i].transform.position.z < BoardPositionZMax.z && EnemyPawn[i].transform.position.z > ChessMen.transform.position.z)
+                            {
                                 BoardPositionZMax.z = EnemyPawn[i].transform.position.z + 100;
+                            }
                             if (EnemyPawn[i].transform.position.z > BoardPositionZMin.z && EnemyPawn[i].transform.position.z < ChessMen.transform.position.z)
+                            {
                                 BoardPositionZMin.z = EnemyPawn[i].transform.position.z - 100;
+                            }
                         }
                         if ((EnemyPawn[i].transform.position.x + EnemyPawn[i].transform.position.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                         {
@@ -304,7 +356,7 @@ namespace Chess.Board
                     else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
                         ChessMoveRange = true;
                     else
-                        ChessMoveRange = false;   
+                        ChessMoveRange = false;
 
                     break;
                 case "King":
@@ -312,12 +364,12 @@ namespace Chess.Board
                     {
                         if (OwnPawn[i].transform.position.y == 0)
                         {
-                            if(OwnPawn[i].transform.position.x == ChessMen.transform.position.x - 100)
+                            if (OwnPawn[i].transform.position.x == ChessMen.transform.position.x - 100)
                             {
                                 if (OwnPawn[i].transform.position.z == ChessMen.transform.position.z - 100)
                                     if (BoardPositionIII.x < OwnPawn[i].transform.position.x)
                                         BoardPositionIII = OwnPawn[i].transform.position;
-                                if (OwnPawn[i].transform.position.z == ChessMen.transform.position.z )
+                                if (OwnPawn[i].transform.position.z == ChessMen.transform.position.z)
                                     if (BoardPositionXMin.x < OwnPawn[i].transform.position.x)
                                         BoardPositionXMin = OwnPawn[i].transform.position;
                                 if (OwnPawn[i].transform.position.z == ChessMen.transform.position.z + 100)
@@ -371,11 +423,19 @@ namespace Chess.Board
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x)
                         {
                             if (EnemyPawn[i].transform.position.z == ChessMen.transform.position.z - 100)
+                            {
                                 if (BoardPositionZMin.z < EnemyPawn[i].transform.position.z)
+                                {
                                     BoardPositionZMin.z = EnemyPawn[i].transform.position.z - 100;
+                                }
+                            }
                             if (EnemyPawn[i].transform.position.z == ChessMen.transform.position.z + 100)
+                            {
                                 if (BoardPositionZMax.z > EnemyPawn[i].transform.position.z)
+                                {
                                     BoardPositionZMax.z = EnemyPawn[i].transform.position.z + 100;
+                                }
+                            }
                         }
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x + 100)
                         {
@@ -413,7 +473,7 @@ namespace Chess.Board
             return ChessMoveRange;
         }
 
-       void BoardPositionReset()
+        void BoardPositionReset()
         {
             BoardPositionXMax = new Vector3(800, 0, 0);
             BoardPositionXMin = new Vector3(-100, 0, 0);
@@ -426,23 +486,18 @@ namespace Chess.Board
             ChessMoveRange = true;
         }
 
-       public void EnemyPawnActive(GameObject ChessMen, GameObject[] EnemyPawn)
+        public void EnemyPawnActive(GameObject ChessMen, GameObject[] EnemyPawn)
         {
             for (int i = 0; i < EnemyPawn.Length; i++)
             {
                 if (EnemyPawn[i].transform.position == ChessMen.transform.position)
                 {
-                    //if (EnemyPawn[i].name[0] == 'B')
-                    //    EnemyPawn[i].transform.position = new Vector3(50 * i, 0, -100);
-                    //else if (EnemyPawn[i].name[0] == 'W')
-                    //    EnemyPawn[i].transform.position = new Vector3(50 * i, 0, 800);
-
                     EnemyPawn[i].SetActive(false);
                 }
             }
         }
-        
-       public bool PawnCatch(GameObject ChessMen, GameObject[] EnemyPawn, Vector3 maps)
+
+        public bool PawnCatch(GameObject ChessMen, GameObject[] EnemyPawn, Vector3 maps)
         {
             if (ChessMen.name[0] == 'W')
             {
@@ -455,9 +510,9 @@ namespace Chess.Board
                             return true;
                         }
                     }
-                } 
+                }
             }
-            else if(ChessMen.name[0] == 'B')
+            else if (ChessMen.name[0] == 'B')
             {
                 for (int i = 0; i < EnemyPawn.Length; i++)
                 {
@@ -477,9 +532,9 @@ namespace Chess.Board
         public Mesh PawnUp(GameObject ChessMen, GameObject[] OwnPawn)
         {
             Mesh Queen = ChessMen.GetComponent<Mesh>();
-            for(int i = 0; i < OwnPawn.Length; i++)
+            for (int i = 0; i < OwnPawn.Length; i++)
             {
-                if(OwnPawn[i].tag == "Queen")
+                if (OwnPawn[i].tag == "Queen")
                     return OwnPawn[i].GetComponent<MeshFilter>().mesh;
             }
             return Queen;
