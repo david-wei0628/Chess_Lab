@@ -8,6 +8,7 @@ namespace Chess.ChessMen
     {
         BoardPosition BoardPosition = new BoardPosition();
         bool ChessMoveType = true;
+        public Mesh PawnUp;
 
         public GameObject SelectMove(GameObject ChessMen, Vector3 maps, string Lock_objext, GameObject[] OwnPawn, GameObject[] EnemyPawn)
         {
@@ -51,7 +52,7 @@ namespace Chess.ChessMen
 
                     if (ChessMen.transform.position.z == 700 || ChessMen.transform.position.z == 0)
                     {
-                        PawnPromotion(ChessMen, OwnPawn);
+                        PawnPromotion(ChessMen);
                     }
                     break;
                 case "Knight":
@@ -87,9 +88,9 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "bishop":
-                    if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == Mathf.Abs(maps.x - ChessMen.transform.position.x))
+                    if (ChessMoveType)
                     {
-                        if (ChessMoveType)
+                        if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == Mathf.Abs(maps.x - ChessMen.transform.position.x))
                         {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                         }
@@ -131,11 +132,12 @@ namespace Chess.ChessMen
             return ChessMen;
         }
 
-        void PawnPromotion(GameObject ChessMen, GameObject[] OwnPawn)
+        void PawnPromotion(GameObject ChessMen)
         {
             ChessMen.tag = "Queen";
-            ChessMen.GetComponent<MeshFilter>().sharedMesh = BoardPosition.PawnUp(ChessMen, OwnPawn);
+            ChessMen.GetComponent<MeshFilter>().sharedMesh = PawnUp;
         }
+
     }
 
 }

@@ -121,12 +121,7 @@ namespace Chess.Board
                         }
                     }
 
-                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
-                        ChessMoveRange = true;
-                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
-                        ChessMoveRange = true;
-                    else
-                        ChessMoveRange = false;
+                    ChessMoveRange = ChessMovetype(ChessMen, maps);
 
                     break;
                 case "bishop":
@@ -212,12 +207,7 @@ namespace Chess.Board
                         }
                     }
 
-                    if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
-                        ChessMoveRange = true;
-                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
-                        ChessMoveRange = true;
-                    else
-                        ChessMoveRange = false;
+                    ChessMoveRange = ChessMovetype(ChessMen, maps);
 
                     break;
                 case "Queen":
@@ -229,22 +219,22 @@ namespace Chess.Board
                             {
                                 if (OwnPawn[i].transform.position.x < BoardPositionXMax.x && OwnPawn[i].transform.position.x > ChessMen.transform.position.x)
                                 {
-                                    BoardPositionXMax.x = OwnPawn[i].transform.position.x + 100;
+                                    BoardPositionXMax.x = OwnPawn[i].transform.position.x;
                                 }
                                 if (OwnPawn[i].transform.position.x > BoardPositionXMin.x && OwnPawn[i].transform.position.x < ChessMen.transform.position.x)
                                 {
-                                    BoardPositionXMin.x = OwnPawn[i].transform.position.x - 100;
+                                    BoardPositionXMin.x = OwnPawn[i].transform.position.x;
                                 }
                             }
                             if (OwnPawn[i].transform.position.x == ChessMen.transform.position.x)
                             {
                                 if (OwnPawn[i].transform.position.z < BoardPositionZMax.z && OwnPawn[i].transform.position.z > ChessMen.transform.position.z)
                                 {
-                                    BoardPositionZMax.z = OwnPawn[i].transform.position.z + 100;
+                                    BoardPositionZMax.z = OwnPawn[i].transform.position.z;
                                 }
                                 if (OwnPawn[i].transform.position.z > BoardPositionZMin.z && OwnPawn[i].transform.position.z < ChessMen.transform.position.z)
                                 {
-                                    BoardPositionZMin.z = OwnPawn[i].transform.position.z - 100;
+                                    BoardPositionZMin.z = OwnPawn[i].transform.position.z;
                                 }
                             }
                             if ((OwnPawn[i].transform.position.x + OwnPawn[i].transform.position.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
@@ -347,16 +337,7 @@ namespace Chess.Board
                         }
                     }
 
-                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
-                        ChessMoveRange = true;
-                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
-                        ChessMoveRange = true;
-                    else if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
-                        ChessMoveRange = true;
-                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
-                        ChessMoveRange = true;
-                    else
-                        ChessMoveRange = false;
+                    ChessMoveRange = ChessMovetype(ChessMen, maps);
 
                     break;
                 case "King":
@@ -399,7 +380,6 @@ namespace Chess.Board
                             }
                         }
                     }
-
                     for (int i = 0; i < EnemyPawn.Length; i++)
                     {
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x - 100)
@@ -457,19 +437,11 @@ namespace Chess.Board
                         }
                     }
 
-                    if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
-                        ChessMoveRange = true;
-                    else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
-                        ChessMoveRange = true;
-                    else if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
-                        ChessMoveRange = true;
-                    else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
-                        ChessMoveRange = true;
-                    else
-                        ChessMoveRange = false;
+                    ChessMoveRange = ChessMovetype(ChessMen, maps);
 
                     break;
             }
+
             return ChessMoveRange;
         }
 
@@ -484,6 +456,20 @@ namespace Chess.Board
             BoardPositionIII = new Vector3(-100, 0, -100);
             BoardPositionIV = new Vector3(800, 0, -100);
             ChessMoveRange = true;
+        }
+
+        bool ChessMovetype(GameObject ChessMen, Vector3 maps)
+        {
+            if (maps.x > BoardPositionXMin.x && maps.x < BoardPositionXMax.x && maps.z == ChessMen.transform.position.z)
+                return true;
+            else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
+                return true;
+            else if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && maps.z > BoardPositionII.z && maps.z < BoardPositionIV.z && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
+                return true;
+            else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && maps.z > BoardPositionIII.z && maps.z < BoardPositionI.z && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
+                return true;
+            else
+                return false;
         }
 
         public void EnemyPawnActive(GameObject ChessMen, GameObject[] EnemyPawn)
@@ -527,17 +513,6 @@ namespace Chess.Board
             }
 
             return false;
-        }
-
-        public Mesh PawnUp(GameObject ChessMen, GameObject[] OwnPawn)
-        {
-            Mesh Queen = ChessMen.GetComponent<Mesh>();
-            for (int i = 0; i < OwnPawn.Length; i++)
-            {
-                if (OwnPawn[i].tag == "Queen")
-                    return OwnPawn[i].GetComponent<MeshFilter>().mesh;
-            }
-            return Queen;
         }
     }
 }

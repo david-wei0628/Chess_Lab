@@ -10,7 +10,7 @@ public class Chess_Move : MonoBehaviour
     void Start()
     {
         Lock_objext = "Board";
-        //SetChessColliderEnabled();
+        PawnMesh();
     }
 
     public Camera main_camear;
@@ -24,6 +24,10 @@ public class Chess_Move : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     ChessMen_Move ChessMen_Move = new ChessMen_Move();
+    public Mesh MeshQueen;
+    public Mesh MeshKnight;
+    public Mesh MeshBishop;
+    public Mesh MeshRook;
 
     // Update is called once per frame
     void Update()
@@ -145,6 +149,11 @@ public class Chess_Move : MonoBehaviour
             main_camear.transform.position = new Vector3(350, 700, 1100);
             main_camear.transform.rotation = Quaternion.Euler(45, 180, 0);
         }
+    }
+
+    void PawnMesh()
+    {
+        ChessMen_Move.PawnUp = MeshQueen;
     }
 
     void show()
