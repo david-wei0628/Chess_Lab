@@ -464,9 +464,9 @@ namespace Chess.Board
                 return true;
             else if (maps.z > BoardPositionZMin.z && maps.z < BoardPositionZMax.z && maps.x == ChessMen.transform.position.x)
                 return true;
-            else if (maps.x > BoardPositionII.x && maps.x < BoardPositionIV.x && maps.z > BoardPositionII.z && maps.z < BoardPositionIV.z && (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
+            else if (maps.x > BoardPositionII.x &&  maps.x < BoardPositionIV.x &&  (maps.x + maps.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z) && maps.z < 800)
                 return true;
-            else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x && maps.z > BoardPositionIII.z && maps.z < BoardPositionI.z && (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z))
+            else if (maps.x > BoardPositionIII.x && maps.x < BoardPositionI.x &&  (maps.x - maps.z) == (ChessMen.transform.position.x - ChessMen.transform.position.z) && maps.z < 800)
                 return true;
             else
                 return false;

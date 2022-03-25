@@ -141,13 +141,13 @@ public class Chess_Move : MonoBehaviour
     {
         if (ChoosePawn == 'W')
         {
-            main_camear.transform.position = new Vector3(350, 700, -400);
-            main_camear.transform.rotation = Quaternion.Euler(45, 0, 0);
+            main_camear.transform.position = new Vector3(350, 940, -225);
+            main_camear.transform.rotation = Quaternion.Euler(60, 0, 0);
         }
         else if (ChoosePawn == 'B')
         {
-            main_camear.transform.position = new Vector3(350, 700, 1100);
-            main_camear.transform.rotation = Quaternion.Euler(45, 180, 0);
+            main_camear.transform.position = new Vector3(350, 940, 930);
+            main_camear.transform.rotation = Quaternion.Euler(60, 180, 0);
         }
     }
 

@@ -77,14 +77,14 @@ namespace Chess.ChessMen
                 case "Rook":
                     if (ChessMoveType)
                     {
-                        if (maps.z == ChessMen.transform.position.z)
+                        if (maps.z == ChessMen.transform.position.z || maps.x == ChessMen.transform.position.x)
                         {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                         }
-                        if (maps.x == ChessMen.transform.position.x)
-                        {
-                            ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
-                        }
+                        //if (maps.x == ChessMen.transform.position.x)
+                        //{
+                        //    ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                        //}
                     }
                     break;
                 case "bishop":
@@ -99,14 +99,14 @@ namespace Chess.ChessMen
                 case "Queen":
                     if (ChessMoveType)
                     {
-                        if (maps.z == ChessMen.transform.position.z)
+                        if (maps.z == ChessMen.transform.position.z || maps.x == ChessMen.transform.position.x)
                         {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                         }
-                        else if (maps.x == ChessMen.transform.position.x)
-                        {
-                            ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
-                        }
+                        //else if (maps.x == ChessMen.transform.position.x)
+                        //{
+                        //    ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
+                        //}
                         if (Mathf.Abs(maps.z - ChessMen.transform.position.z) == Mathf.Abs(maps.x - ChessMen.transform.position.x))
                         {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
@@ -114,9 +114,9 @@ namespace Chess.ChessMen
                     }
                     break;
                 case "King":
-                    if (Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100)
+                    if (ChessMoveType)
                     {
-                        if (ChessMoveType)
+                        if (Mathf.Abs(maps.x - ChessMen.transform.position.x) <= 100 && Mathf.Abs(maps.z - ChessMen.transform.position.z) <= 100)
                         {
                             ChessMen.transform.position = Vector3.Lerp(ChessMen.transform.position, maps, 1f);
                         }
