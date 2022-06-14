@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Chess.ChessMen;
 using Chess.Board;
+using UnityEngine.UI;
 
 public class Chess_Move : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class Chess_Move : MonoBehaviour
     void Start()
     {
         Lock_objext = "Board";
-        PawnMesh();
+        UseChess.text = "White";
+        PawnMesh();        
     }
 
     public Camera main_camear;
@@ -28,6 +30,7 @@ public class Chess_Move : MonoBehaviour
     public Mesh MeshKnight;
     public Mesh MeshBishop;
     public Mesh MeshRook;
+    public Text UseChess;
 
     // Update is called once per frame
     void Update()
@@ -141,11 +144,13 @@ public class Chess_Move : MonoBehaviour
     {
         if (ChoosePawn == 'W')
         {
+            UseChess.text = "White";
             main_camear.transform.position = new Vector3(350, 940, -225);
             main_camear.transform.rotation = Quaternion.Euler(60, 0, 0);
         }
         else if (ChoosePawn == 'B')
         {
+            UseChess.text = "Black";
             main_camear.transform.position = new Vector3(350, 940, 930);
             main_camear.transform.rotation = Quaternion.Euler(60, 180, 0);
         }
@@ -156,6 +161,10 @@ public class Chess_Move : MonoBehaviour
         ChessMen_Move.PawnUp = MeshQueen;
     }
 
+    public void MeshBtnOnClick()
+    {
+        Debug.Log(this.name);
+    }
     void show()
     {
         Debug.Log(ChessMen.GetComponent<MeshFilter>().mesh);
