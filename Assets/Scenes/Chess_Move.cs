@@ -12,7 +12,9 @@ public class Chess_Move : MonoBehaviour
     {
         Lock_objext = "Board";
         UseChess.text = "White";
-        PawnMesh();        
+        UpMesh = MeshQueen;
+        ChessMen_Move.ChageTag = "Queen";
+        PawnUp.text = "PawnUP : Queen";
     }
 
     public Camera main_camear;
@@ -26,11 +28,13 @@ public class Chess_Move : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     ChessMen_Move ChessMen_Move = new ChessMen_Move();
+    Mesh UpMesh;
     public Mesh MeshQueen;
     public Mesh MeshKnight;
     public Mesh MeshBishop;
     public Mesh MeshRook;
     public Text UseChess;
+    public Text PawnUp;
 
     // Update is called once per frame
     void Update()
@@ -156,18 +160,32 @@ public class Chess_Move : MonoBehaviour
         }
     }
 
-    void PawnMesh()
+    void PawnMesh(string v)
     {
-        ChessMen_Move.PawnUp = MeshQueen;
+        switch(v)
+        {
+            case "bishop":
+                UpMesh = MeshBishop;
+                break;
+            case "Queen":
+                UpMesh = MeshQueen;
+                break;
+            case "Rook":
+                UpMesh = MeshRook;
+                break;
+            case "Knight":
+                UpMesh = MeshKnight;
+                break;
+        }
+        ChessMen_Move.ChageTag = v;
+        ChessMen_Move.PawnUp = UpMesh;
     }
 
-    public void MeshBtnOnClick()
-    {
-        Debug.Log(this.name);
-    }
-    void show()
-    {
-        Debug.Log(ChessMen.GetComponent<MeshFilter>().mesh);
-        //ChessMen.GetComponent<MeshFilter>().sharedMesh = BoardPosition.PawnUp(ChessMen, WhiteChessposition); 
-    }
+    public void MeshBtnOnClick(Button v)
+    {        
+        PawnMesh(v.tag);
+        PawnUp.text = "PawnUP : " + UpMesh.ToString();
+        
+    } 
+   
 }

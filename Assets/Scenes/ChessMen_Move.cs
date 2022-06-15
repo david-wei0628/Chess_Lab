@@ -9,6 +9,7 @@ namespace Chess.ChessMen
         BoardPosition BoardPosition = new BoardPosition();
         bool ChessMoveType = true;
         public Mesh PawnUp;
+        public string ChageTag;
 
         public GameObject SelectMove(GameObject ChessMen, Vector3 maps, string Lock_objext, GameObject[] OwnPawn, GameObject[] EnemyPawn)
         {
@@ -134,7 +135,7 @@ namespace Chess.ChessMen
 
         void PawnPromotion(GameObject ChessMen)
         {
-            ChessMen.tag = "Queen";
+            ChessMen.tag = ChageTag;
             ChessMen.GetComponent<MeshFilter>().sharedMesh = PawnUp;
         }
 
