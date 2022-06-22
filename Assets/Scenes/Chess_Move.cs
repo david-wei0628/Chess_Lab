@@ -22,8 +22,10 @@ public class Chess_Move : MonoBehaviour
     string Lock_objext;
     char ChoosePawn = 'W';
     Vector3 maps;
-    GameObject[] WhiteChessposition = new GameObject[16];
-    GameObject[] BlackChessposition = new GameObject[16];
+    //GameObject[] WhiteChessposition = new GameObject[16];
+    List<GameObject> WhiteChesslist = new List<GameObject>();
+    //GameObject[] BlackChessposition = new GameObject[16];
+    List<GameObject> BlackChesslist = new List<GameObject>();
     Vector3 ChossChess;
     Ray ray;
     RaycastHit hit;
@@ -79,7 +81,8 @@ public class Chess_Move : MonoBehaviour
         ChossChess.y = 0;
         if (ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
         {
-            ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
+            //ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
+            ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, WhiteChesslist, BlackChesslist);
             if (ChossChess != ChessMen.transform.position)
             {
                 ChoosePawn = 'B';
@@ -88,7 +91,8 @@ public class Chess_Move : MonoBehaviour
         }
         else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
         {
-            ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
+            //ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
+            ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, BlackChesslist, WhiteChesslist);
             if (ChossChess != ChessMen.transform.position)
             {
                 ChoosePawn = 'W';
@@ -134,12 +138,14 @@ public class Chess_Move : MonoBehaviour
             this.GetComponentsInChildren<Collider>()[i].enabled = !this.GetComponentsInChildren<Collider>()[i].enabled;
             if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'W')
             {
-                WhiteChessposition[i] = this.GetComponentsInChildren<Collider>()[i].gameObject;
+                //WhiteChessposition[i] = this.GetComponentsInChildren<Collider>()[i].gameObject;
+                WhiteChesslist.Add(this.GetComponentsInChildren<Collider>()[i].gameObject);
                 blackstar++;
             }
             if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'B')
             {
-                BlackChessposition[i - blackstar] = this.GetComponentsInChildren<Collider>()[i].gameObject;
+                //BlackChessposition[i - blackstar] = this.GetComponentsInChildren<Collider>()[i].gameObject;
+                BlackChesslist.Add(this.GetComponentsInChildren<Collider>()[i].gameObject);
             }
         }
     }

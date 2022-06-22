@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Chess.Board;
 
@@ -11,7 +12,7 @@ namespace Chess.ChessMen
         public Mesh PawnUp;
         public string ChageTag;
 
-        public GameObject SelectMove(GameObject ChessMen, Vector3 maps, string Lock_objext, GameObject[] OwnPawn, GameObject[] EnemyPawn)
+        public GameObject SelectMove(GameObject ChessMen, Vector3 maps, string Lock_objext, List<GameObject> OwnPawn, List<GameObject> EnemyPawn)
         {
             ChessMoveType = BoardPosition.BoardPositionRange(ChessMen, maps, OwnPawn, EnemyPawn);
             switch (ChessMen.tag)

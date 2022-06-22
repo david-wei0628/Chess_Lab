@@ -16,13 +16,13 @@ namespace Chess.Board
         Vector3 BoardPositionIV;
         bool ChessMoveRange;
 
-        public bool BoardPositionRange(GameObject ChessMen, Vector3 maps, GameObject[] OwnPawn, GameObject[] EnemyPawn)
+        public bool BoardPositionRange(GameObject ChessMen, Vector3 maps, List<GameObject> OwnPawn, List<GameObject> EnemyPawn)
         {
             BoardPositionReset();
             switch (ChessMen.tag)
             {
                 case "Pawn":
-                    for (int i = 0; i < OwnPawn.Length; i++)
+                    for (int i = 0; i < OwnPawn.Count; i++)
                     {
                         if (OwnPawn[i].transform.position.y == 0)
                         {
@@ -39,7 +39,7 @@ namespace Chess.Board
                             }
                         }
                     }
-                    for (int i = 0; i < EnemyPawn.Length; i++)
+                    for (int i = 0; i < EnemyPawn.Count; i++)
                     {
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x)
                         {
@@ -56,7 +56,7 @@ namespace Chess.Board
                         ChessMoveRange = false;
                     break;
                 case "Knight":
-                    for (int i = 0; i < OwnPawn.Length; i++)
+                    for (int i = 0; i < OwnPawn.Count; i++)
                     {
                         if (OwnPawn[i].transform.position.y == 0)
                         {
@@ -67,7 +67,7 @@ namespace Chess.Board
 
                     break;
                 case "Rook":
-                    for (int i = 0; i < OwnPawn.Length; i++)
+                    for (int i = 0; i < OwnPawn.Count; i++)
                     {
                         if (OwnPawn[i].transform.position.y == 0)
                         {
@@ -95,7 +95,7 @@ namespace Chess.Board
                             }
                         }
                     }
-                    for (int i = 0; i < EnemyPawn.Length; i++)
+                    for (int i = 0; i < EnemyPawn.Count; i++)
                     {
                         if (EnemyPawn[i].transform.position.z == ChessMen.transform.position.z)
                         {
@@ -125,7 +125,7 @@ namespace Chess.Board
 
                     break;
                 case "bishop":
-                    for (int i = 0; i < OwnPawn.Length; i++)
+                    for (int i = 0; i < OwnPawn.Count; i++)
                     {
                         if (OwnPawn[i].transform.position.y == 0)
                         {
@@ -165,7 +165,7 @@ namespace Chess.Board
                             }
                         }
                     }
-                    for (int i = 0; i < EnemyPawn.Length; i++)
+                    for (int i = 0; i < EnemyPawn.Count; i++)
                     {
                         if ((EnemyPawn[i].transform.position.x + EnemyPawn[i].transform.position.z) == (ChessMen.transform.position.x + ChessMen.transform.position.z))
                         {
@@ -211,7 +211,7 @@ namespace Chess.Board
 
                     break;
                 case "Queen":
-                    for (int i = 0; i < OwnPawn.Length; i++)
+                    for (int i = 0; i < OwnPawn.Count; i++)
                     {
                         if (OwnPawn[i].transform.position.y == 0)
                         {
@@ -273,7 +273,7 @@ namespace Chess.Board
                             }
                         }
                     }
-                    for (int i = 0; i < EnemyPawn.Length; i++)
+                    for (int i = 0; i < EnemyPawn.Count; i++)
                     {
                         if (EnemyPawn[i].transform.position.z == ChessMen.transform.position.z)
                         {
@@ -341,7 +341,7 @@ namespace Chess.Board
 
                     break;
                 case "King":
-                    for (int i = 0; i < OwnPawn.Length; i++)
+                    for (int i = 0; i < OwnPawn.Count; i++)
                     {
                         if (OwnPawn[i].transform.position.y == 0)
                         {
@@ -380,7 +380,7 @@ namespace Chess.Board
                             }
                         }
                     }
-                    for (int i = 0; i < EnemyPawn.Length; i++)
+                    for (int i = 0; i < EnemyPawn.Count; i++)
                     {
                         if (EnemyPawn[i].transform.position.x == ChessMen.transform.position.x - 100)
                         {
@@ -472,9 +472,9 @@ namespace Chess.Board
                 return false;
         }
 
-        public void EnemyPawnActive(GameObject ChessMen, GameObject[] EnemyPawn)
+        public void EnemyPawnActive(GameObject ChessMen, List<GameObject> EnemyPawn)
         {
-            for (int i = 0; i < EnemyPawn.Length; i++)
+            for (int i = 0; i < EnemyPawn.Count; i++)
             {
                 if (EnemyPawn[i].transform.position == ChessMen.transform.position)
                 {
@@ -483,11 +483,11 @@ namespace Chess.Board
             }
         }
 
-        public bool PawnCatch(GameObject ChessMen, GameObject[] EnemyPawn, Vector3 maps)
+        public bool PawnCatch(GameObject ChessMen, List<GameObject> EnemyPawn, Vector3 maps)
         {
             if (ChessMen.name[0] == 'W')
             {
-                for (int i = 0; i < EnemyPawn.Length; i++)
+                for (int i = 0; i < EnemyPawn.Count; i++)
                 {
                     if (EnemyPawn[i].transform.position.z - ChessMen.transform.position.z == 100 && EnemyPawn[i].transform.position == maps)
                     {
@@ -500,7 +500,7 @@ namespace Chess.Board
             }
             else if (ChessMen.name[0] == 'B')
             {
-                for (int i = 0; i < EnemyPawn.Length; i++)
+                for (int i = 0; i < EnemyPawn.Count; i++)
                 {
                     if (ChessMen.transform.position.z - EnemyPawn[i].transform.position.z == 100 && EnemyPawn[i].transform.position == maps)
                     {
