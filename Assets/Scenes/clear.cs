@@ -17,8 +17,8 @@ public class clear : MonoBehaviour
 
     private void Awake()
     {
-        testDelegetaFun = () => { Debug.Log("XXLamb"); };
-        testDelegetaFun();
+        //testDelegetaFun = () => { Debug.Log("XXLamb"); };
+        //testDelegetaFun();
     }
 
     // Update is called once per frame

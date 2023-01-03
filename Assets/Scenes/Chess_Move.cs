@@ -4,6 +4,7 @@ using UnityEngine;
 using Chess.ChessMen;
 using Chess.Board;
 using UnityEngine.UI;
+using Mirror;
 
 public class Chess_Move : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class Chess_Move : MonoBehaviour
     }
 
     public Camera main_camear;
+    public GameObject User_Camear;
     GameObject ChessMen;
     string Lock_objext;
     char ChoosePawn = 'W';
@@ -197,5 +199,7 @@ public class Chess_Move : MonoBehaviour
         PawnUp.text = "PawnUP : " + ChessMen_Move.ChageTag.ToString();
         
     } 
+
+    
    
 }
