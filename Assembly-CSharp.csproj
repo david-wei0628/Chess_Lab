@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scenes\Chess_Move.cs" />
+    <Compile Include="Assets\Scenes\Net\Script\CanvasHUD.cs" />
     <Compile Include="Assets\Scenes\Net\Script\BoardPosition_NET.cs" />
     <Compile Include="Assets\Scenes\clear.cs" />
     <Compile Include="Assets\Scenes\ChessMen_Move.cs" />

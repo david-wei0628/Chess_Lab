@@ -115,6 +115,23 @@ namespace Mirror
         // scene loading
         public static bool isLoadingScene;
 
+        public static char CurrentSide = 'W';
+
+        public static char Chess(char ChessSide)
+        {
+            switch (ChessSide)
+            {
+                case 'W':
+                    ChessSide = 'B';
+                    break;
+                case 'B':
+                    ChessSide = 'W';
+                    break;
+            }
+            CurrentSide = ChessSide;
+            return ChessSide;
+        }
+
         // initialization //////////////////////////////////////////////////////
         static void AddTransportHandlers()
         {

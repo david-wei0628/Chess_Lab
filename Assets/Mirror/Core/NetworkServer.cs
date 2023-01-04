@@ -91,6 +91,8 @@ namespace Mirror
         // capture full Unity update time from before Early- to after LateUpdate
         public static TimeSample fullUpdateDuration;
 
+        
+
         // initialization / shutdown ///////////////////////////////////////////
         static void Initialize()
         {

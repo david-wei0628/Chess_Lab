@@ -16,7 +16,7 @@ public class Chess_Move_NET : MonoBehaviour
         UpMesh = MeshQueen;
         ChessMen_Move.ChageTag = "Queen";
         PawnUp.text = "PawnUP : Queen";
-        Net.text = NetworkClient.connection.address;
+        Net.text = ChoosePawn.ToString();
         //Aut = GetComponent<NetworkBehaviour>().isOwned;
         //main_camear.enabled = false;
         //CamearChange();
@@ -28,12 +28,12 @@ public class Chess_Move_NET : MonoBehaviour
         //}
     }
 
-    bool Aut;
     public Camera main_camear;
     public GameObject User_Camear;
     GameObject ChessMen;
     string Lock_objext;
-    char ChoosePawn = 'W';
+    //char ChoosePawn = 'W';
+    public char ChoosePawn = NetworkClient.CurrentSide;
     Vector3 maps;
     //GameObject[] WhiteChessposition = new GameObject[16];
     List<GameObject> WhiteChesslist = new List<GameObject>();
@@ -55,14 +55,19 @@ public class Chess_Move_NET : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        //if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && NetworkClient.active)
         {
             if (Lock_objext == "Board")
                 SelectChess();
             else if (Lock_objext != "Board")
                 MoveChess();
         }
-
+        if (Input.GetKey(KeyCode.Space))
+        {
+            UIText();
+        }
+        Net.text = NetworkClient.CurrentSide.ToString();
     }
 
     /// <summary>
@@ -91,11 +96,11 @@ public class Chess_Move_NET : MonoBehaviour
         ChossChess.y = 0;
         if (ChoosePawn == 'W' && ChessMen.transform.position.y == 50)
         {
-            //ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, WhiteChessposition, BlackChessposition);
             ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, WhiteChesslist, BlackChesslist);
             if (ChossChess != ChessMen.transform.position)
             {
-                ChoosePawn = 'B';
+                //ChoosePawn = 'B';
+                ChoosePawn = NetworkClient.Chess(ChoosePawn);
                 WhiteChesslist.Clear();
                 BlackChesslist.Clear();
                 Invoke("CamearTrans", 0.5f);
@@ -103,11 +108,11 @@ public class Chess_Move_NET : MonoBehaviour
         }
         else if (ChoosePawn == 'B' && ChessMen.transform.position.y == 50)
         {
-            //ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, BlackChessposition, WhiteChessposition);
             ChessMen = ChessMen_Move.SelectMove(ChessMen, maps, Lock_objext, BlackChesslist, WhiteChesslist);
             if (ChossChess != ChessMen.transform.position)
             {
-                ChoosePawn = 'W';
+                //ChoosePawn = 'W';
+                ChoosePawn = NetworkClient.Chess(ChoosePawn);
                 WhiteChesslist.Clear();
                 BlackChesslist.Clear();
                 Invoke("CamearTrans", 0.5f);
@@ -178,6 +183,8 @@ public class Chess_Move_NET : MonoBehaviour
             main_camear.transform.position = new Vector3(350, 940, 930);
             main_camear.transform.rotation = Quaternion.Euler(60, 180, 0);
         }
+        ChessMen_Move = new ChessMen_Move();
+        UIText();
     }
 
     void PawnMesh(string v)
@@ -218,6 +225,12 @@ public class Chess_Move_NET : MonoBehaviour
     void UserCame(bool type)
     {
         User_Camear.SetActive(type);
+    }
+
+    void UIText()
+    {
+        //Net.text = NetworkClient.active.ToString() + " " + NetworkServer.active.ToString();
+        Net.text = ChoosePawn.ToString();
     }
    
 }
