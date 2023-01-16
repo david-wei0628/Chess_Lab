@@ -214,6 +214,7 @@ namespace Mirror
         // local authority client sends sync message to server for broadcasting
         protected virtual void OnClientToServerSync(Vector3? position, Quaternion? rotation, Vector3? scale)
         {
+            Debug.Log("OCTS");
             // only apply if in client authority mode
             if (syncDirection != SyncDirection.ClientToServer) return;
 
@@ -261,6 +262,7 @@ namespace Mirror
         // server broadcasts sync message to all clients
         protected virtual void OnServerToClientSync(Vector3? position, Quaternion? rotation, Vector3? scale)
         {
+            //Debug.Log("S2C");
             // don't apply for local player with authority
             if (IsClientWithAuthority) return;
 
@@ -314,7 +316,6 @@ namespace Mirror
         {
             // get current snapshot for broadcasting.
             TransformSnapshot snapshot = Construct();
-
             // ClientToServer optimization:
             // for interpolated client owned identities,
             // always broadcast the latest known snapshot so other clients can
@@ -348,7 +349,6 @@ namespace Mirror
             else
             {
                 // int before = writer.Position;
-
                 if (syncPosition)
                 {
                     // quantize -> delta -> varint
@@ -377,11 +377,10 @@ namespace Mirror
             // save serialized as 'last' for next delta compression
             if (syncPosition) Compression.ScaleToLong(snapshot.position, positionPrecision, out lastSerializedPosition);
             if (syncScale)    Compression.ScaleToLong(snapshot.position, scalePrecision,    out lastSerializedScale);
-
             // set 'last'
             last = snapshot;
         }
-
+        
         public override void OnDeserialize(NetworkReader reader, bool initialState)
         {
             Vector3?    position = null;
@@ -428,9 +427,9 @@ namespace Mirror
 
             // handle depending on server / client / host.
             // server has priority for host mode.
-            if      (isServer) OnClientToServerSync(position, rotation, scale);
-            else if (isClient) OnServerToClientSync(position, rotation, scale);
 
+            if (isServer) OnClientToServerSync(position, rotation, scale);
+            else if (isClient) OnServerToClientSync(position, rotation, scale);
             // save deserialized as 'last' for next delta compression
             if (syncPosition) Compression.ScaleToLong(position.Value, positionPrecision, out lastDeserializedPosition);
             if (syncScale)    Compression.ScaleToLong(scale.Value,    scalePrecision,    out lastDeserializedScale);
@@ -527,10 +526,10 @@ namespace Mirror
         void Update()
         {
             // if server then always sync to others.
-            if      (isServer) UpdateServer();
+            if (isServer) UpdateServer();
             // 'else if' because host mode shouldn't send anything to server.
             // it is the server. don't overwrite anything there.
-            else if (isClient) UpdateClient();
+            else if (isClient) UpdateClient();   
         }
 
         // common Teleport code for client->server and server->client

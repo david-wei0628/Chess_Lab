@@ -53,7 +53,7 @@ namespace Mirror
         //
         //   => fixes https://github.com/vis2k/Mirror/issues/1475
         public bool isClient { get; internal set; }
-
+        public string isString { get; internal set; }
         /// <summary>Returns true if NetworkServer.active and server is not stopped.</summary>
         //
         // IMPORTANT:
@@ -870,6 +870,31 @@ namespace Mirror
             return (ownerMask, observerMask);
         }
 
+        ulong ClientDirtyMasks(bool initialState)
+        {
+            ulong ownerMask    = 0;
+
+            NetworkBehaviour[] components = NetworkBehaviours;
+            for (int i = 0; i < components.Length; ++i)
+            {
+                NetworkBehaviour component = components[i];
+
+                bool dirty = component.IsDirty();
+                ulong nthBit = (1u << i);
+
+                // owner needs to be considered for both SyncModes, because
+                // Observers mode always includes the Owner.
+                //
+                // for initial, it should always sync owner.
+                // for delta, only for ServerToClient and only if dirty.
+                //     ClientToServer comes from the owner client.
+                if (initialState || (component.syncDirection == SyncDirection.ServerToClient && dirty))
+                    ownerMask |= nthBit;
+            }
+
+            return ownerMask;
+        }
+
         // build dirty mask for client.
         // server always knows initialState, so we don't need it here.
         ulong ClientDirtyMask()
@@ -914,6 +939,7 @@ namespace Mirror
         // if any Components are dirty before creating writers
         internal void SerializeServer(bool initialState, NetworkWriter ownerWriter, NetworkWriter observersWriter)
         {
+            ///SerializeServer ->Serialize
             // ensure NetworkBehaviours are valid before usage
             ValidateComponents();
             NetworkBehaviour[] components = NetworkBehaviours;
@@ -971,54 +997,97 @@ namespace Mirror
             }
         }
 
-        // serialize components into writer on the client.
-        internal void SerializeClient(NetworkWriter writer)
+        //serialize components into writer on the client.
+        internal void SerializeClient(NetworkWriter writer, bool initialState)
         {
+            Debug.Log("SerializeClient");
             // ensure NetworkBehaviours are valid before usage
             ValidateComponents();
             NetworkBehaviour[] components = NetworkBehaviours;
 
-            // check which components are dirty.
-            // this is quite complicated with SyncMode + SyncDirection.
-            // see the function for explanation.
-            //
-            // instead of writing a 1 byte index per component,
-            // we limit components to 64 bits and write one ulong instead.
-            // the ulong is also varint compressed for minimum bandwidth.
-            ulong dirtyMask = ClientDirtyMask();
+            //// check which components are dirty.
+            //// this is quite complicated with SyncMode + SyncDirection.
+            //// see the function for explanation.
+            ////
+            //// instead of writing a 1 byte index per component,
+            //// we limit components to 64 bits and write one ulong instead.
+            //// the ulong is also varint compressed for minimum bandwidth.
+            //ulong dirtyMask = ClientDirtyMask();
 
-            // varint compresses the mask to 1 byte in most cases.
-            // instead of writing an 8 byte ulong.
-            //   7 components fit into 1 byte.  (previously  7 bytes)
-            //  11 components fit into 2 bytes. (previously 11 bytes)
-            //  16 components fit into 3 bytes. (previously 16 bytes)
-            // TODO imer: server knows amount of comps, write N bytes instead
+            //// varint compresses the mask to 1 byte in most cases.
+            //// instead of writing an 8 byte ulong.
+            ////   7 components fit into 1 byte.  (previously  7 bytes)
+            ////  11 components fit into 2 bytes. (previously 11 bytes)
+            ////  16 components fit into 3 bytes. (previously 16 bytes)
+            //// TODO imer: server knows amount of comps, write N bytes instead
+
+            //// if nothing dirty, then don't even write the mask.
+            //// otherwise, every unchanged object would send a 1 byte dirty mask!
+            //if (dirtyMask != 0) Compression.CompressVarUInt(writer, dirtyMask);
+
+            //// serialize all components
+            //// perf: only iterate if dirty mask has dirty bits.
+            //if (dirtyMask != 0)
+            //{
+            //    // serialize all components
+            //    for (int i = 0; i < components.Length; ++i)
+            //    {
+            //        NetworkBehaviour comp = components[i];
+
+            //        // is this component dirty?
+            //        // reuse the mask instead of calling comp.IsDirty() again here.
+            //        if (IsDirty(dirtyMask, i))
+            //        // if (isOwned && component.syncDirection == SyncDirection.ClientToServer)
+            //        {
+            //            // serialize into writer.
+            //            // server always knows initialState, we never need to send it
+            //            comp.Serialize(writer, false);
+            //        }
+            //    }
+            //}
+            ulong ownerMask = ClientDirtyMasks(initialState);
 
             // if nothing dirty, then don't even write the mask.
             // otherwise, every unchanged object would send a 1 byte dirty mask!
-            if (dirtyMask != 0) Compression.CompressVarUInt(writer, dirtyMask);
+            if (ownerMask != 0) Compression.CompressVarUInt(writer, ownerMask);
 
             // serialize all components
-            // perf: only iterate if dirty mask has dirty bits.
-            if (dirtyMask != 0)
+            // perf: only iterate if either dirty mask has dirty bits.
+            if (ownerMask!= 0)
             {
-                // serialize all components
                 for (int i = 0; i < components.Length; ++i)
                 {
                     NetworkBehaviour comp = components[i];
 
-                    // is this component dirty?
-                    // reuse the mask instead of calling comp.IsDirty() again here.
-                    if (IsDirty(dirtyMask, i))
-                    // if (isOwned && component.syncDirection == SyncDirection.ClientToServer)
+                    // is the component dirty for anyone (owner or observers)?
+                    // may be serialized to owner, observer, both, or neither.
+                    //
+                    // OnSerialize should only be called once.
+                    // this is faster, and it cleaner because it may set
+                    // internal state, counters, logs, etc.
+                    //
+                    // previously we always serialized to owner and then copied
+                    // the serialization to observers. however, since
+                    // SyncDirection it's not guaranteed to be in owner anymore.
+                    // so we need to serialize to temporary writer first.
+                    // and then copy as needed.
+                    bool ownerDirty = IsDirty(ownerMask, i);
+                    if (ownerDirty)
                     {
-                        // serialize into writer.
-                        // server always knows initialState, we never need to send it
-                        comp.Serialize(writer, false);
+                        // serialize into helper writer
+                        using (NetworkWriterPooled temp = NetworkWriterPool.Get())
+                        {
+                            comp.Serialize(temp, initialState);
+                            ArraySegment<byte> segment = temp.ToArraySegment();
+
+                            // copy to owner / observers as needed
+                            if (ownerDirty) writer.WriteBytes(segment.Array, segment.Offset, segment.Count);
+                        }
                     }
                 }
             }
         }
+
 
         // deserialize components from the client on the server.
         // there's no 'initialState'. server always knows the initial state.
@@ -1038,6 +1107,7 @@ namespace Mirror
                 if (IsDirty(mask, i))
                 {
                     NetworkBehaviour comp = components[i];
+                    //comp.Deserialize(reader, initialState);
 
                     // safety check to ensure clients can only modify their own
                     // ClientToServer components, nothing else.
@@ -1067,6 +1137,7 @@ namespace Mirror
         // deserialize components from server on the client.
         internal void DeserializeClient(NetworkReader reader, bool initialState)
         {
+            ///DeserializeClient -> Deserialize
             // ensure NetworkBehaviours are valid before usage
             ValidateComponents();
             NetworkBehaviour[] components = NetworkBehaviours;
@@ -1107,11 +1178,13 @@ namespace Mirror
                 // reset
                 lastSerialization.ownerWriter.Position = 0;
                 lastSerialization.observersWriter.Position = 0;
-
                 // serialize
                 SerializeServer(false,
                                 lastSerialization.ownerWriter,
                                 lastSerialization.observersWriter);
+
+                SerializeClient(lastSerialization.ownerWriter, false);
+
 
                 // clear dirty bits for the components that we serialized.
                 // previously we did this in NetworkServer.BroadcastToConnection
@@ -1220,6 +1293,13 @@ namespace Mirror
                 conn.RemoveFromObserving(this, true);
             }
             observers.Clear();
+        }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Debug.Log(isServer.ToString());
+            }
         }
 
         /// <summary>Assign control of an object to a client via the client's NetworkConnection.</summary>

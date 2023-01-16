@@ -184,7 +184,27 @@ PrefabInstance:
       objectReference: {fileID: 7366562982480648638, guid: 50fd538551444d94c8ce2cc7aa5f104f, type: 3}
     - target: {fileID: 6572500767738605829, guid: 6bd43d45df619fd44b7f0a695c5fa420, type: 3}
       propertyPath: maxConnections
-      value: 2
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572500767738605829, guid: 6bd43d45df619fd44b7f0a695c5fa420, type: 3}
+      propertyPath: runInBackground
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572500767738605829, guid: 6bd43d45df619fd44b7f0a695c5fa420, type: 3}
+      propertyPath: autoCreatePlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572500767738605829, guid: 6bd43d45df619fd44b7f0a695c5fa420, type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572500767738605829, guid: 6bd43d45df619fd44b7f0a695c5fa420, type: 3}
+      propertyPath: autoStartServerBuild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572500767738605829, guid: 6bd43d45df619fd44b7f0a695c5fa420, type: 3}
+      propertyPath: autoConnectClientBuild
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6572500767738605833, guid: 6bd43d45df619fd44b7f0a695c5fa420, type: 3}
       propertyPath: m_Name

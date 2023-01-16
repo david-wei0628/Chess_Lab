@@ -242,6 +242,7 @@ namespace Mirror
         // server broadcasts sync message to all clients
         protected virtual void OnServerToClientSync(Vector3? position, Quaternion? rotation, Vector3? scale)
         {
+            Debug.Log("OSTC");
             // in host mode, the server sends rpcs to all clients.
             // the host client itself will receive them too.
             // -> host server is always the source of truth

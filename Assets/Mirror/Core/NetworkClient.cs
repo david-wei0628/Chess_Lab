@@ -1220,7 +1220,6 @@ namespace Mirror
 
         internal static void OnObjectSpawnStarted(ObjectSpawnStartedMessage _)
         {
-            // Debug.Log("SpawnStarted");
             PrepareToSpawnSceneObjects();
             isSpawnFinished = false;
         }
@@ -1506,7 +1505,8 @@ namespace Mirror
                     {
                         // get serialization for this entity viewed by this connection
                         // (if anything was serialized this time)
-                        identity.SerializeClient(writer);
+                        identity.SerializeClient(writer, true);
+
                         if (writer.Position > 0)
                         {
                             // send state update message
@@ -1516,7 +1516,6 @@ namespace Mirror
                                 payload = writer.ToArraySegment()
                             };
                             Send(message);
-
                             // reset dirty bits so it's not resent next time.
                             identity.ClearDirtyComponentsDirtyBits();
                         }
@@ -1554,6 +1553,8 @@ namespace Mirror
             //
             // we could use a .sendInterval, but it would also put a minimum
             // limit to every component's sendInterval automatically.
+
+
             if (active)
             {
                 // broadcast every sendInterval.

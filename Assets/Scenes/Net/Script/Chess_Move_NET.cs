@@ -16,7 +16,7 @@ public class Chess_Move_NET : MonoBehaviour
         UpMesh = MeshQueen;
         ChessMen_Move.ChageTag = "Queen";
         PawnUp.text = "PawnUP : Queen";
-        Net.text = ChoosePawn.ToString();
+        //Net.text = ChoosePawn.ToString();
         //Aut = GetComponent<NetworkBehaviour>().isOwned;
         //main_camear.enabled = false;
         //CamearChange();
@@ -32,8 +32,8 @@ public class Chess_Move_NET : MonoBehaviour
     public GameObject User_Camear;
     GameObject ChessMen;
     string Lock_objext;
-    //char ChoosePawn = 'W';
-    public char ChoosePawn = NetworkClient.CurrentSide;
+    char ChoosePawn = 'W';
+    //public char ChoosePawn = NetworkManager.CurrentSide;
     Vector3 maps;
     //GameObject[] WhiteChessposition = new GameObject[16];
     List<GameObject> WhiteChesslist = new List<GameObject>();
@@ -63,11 +63,12 @@ public class Chess_Move_NET : MonoBehaviour
             else if (Lock_objext != "Board")
                 MoveChess();
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            UIText();
+            
         }
-        Net.text = NetworkClient.CurrentSide.ToString();
+        //Net.text = NetworkClient.CurrentSide.ToString();
+        //Debug.Log(NetworkServer.CurrentSide.ToString());
     }
 
     /// <summary>
@@ -101,8 +102,8 @@ public class Chess_Move_NET : MonoBehaviour
             {
                 //ChoosePawn = 'B';
                 ChoosePawn = NetworkClient.Chess(ChoosePawn);
-                WhiteChesslist.Clear();
-                BlackChesslist.Clear();
+                //WhiteChesslist.Clear();
+                //BlackChesslist.Clear();
                 Invoke("CamearTrans", 0.5f);
             }
         }
@@ -113,11 +114,13 @@ public class Chess_Move_NET : MonoBehaviour
             {
                 //ChoosePawn = 'W';
                 ChoosePawn = NetworkClient.Chess(ChoosePawn);
-                WhiteChesslist.Clear();
-                BlackChesslist.Clear();
+                //WhiteChesslist.Clear();
+                //BlackChesslist.Clear();
                 Invoke("CamearTrans", 0.5f);
             }
         }
+        WhiteChesslist.Clear();
+        BlackChesslist.Clear();
         Lock_objext = "Board";
     }
 
@@ -151,7 +154,6 @@ public class Chess_Move_NET : MonoBehaviour
     /// </summary>
     void SetChessColliderEnabled()
     {
-        int blackstar = 0;
         for (int i = 0; i < this.GetComponentsInChildren<Collider>().Length; i++)
         {
             this.GetComponentsInChildren<Collider>()[i].enabled = !this.GetComponentsInChildren<Collider>()[i].enabled;
@@ -159,7 +161,6 @@ public class Chess_Move_NET : MonoBehaviour
             {
                 //WhiteChessposition[i] = this.GetComponentsInChildren<Collider>()[i].gameObject;
                 WhiteChesslist.Add(this.GetComponentsInChildren<Collider>()[i].gameObject);
-                blackstar++;
             }
             if (this.GetComponentsInChildren<Collider>()[i].name[0] == 'B')
             {
@@ -173,18 +174,20 @@ public class Chess_Move_NET : MonoBehaviour
     {
         if (ChoosePawn == 'W')
         {
+            //Net.text = "a";
             UseChess.text = "White";
             main_camear.transform.position = new Vector3(350, 940, -225);
             main_camear.transform.rotation = Quaternion.Euler(60, 0, 0);
         }
         else if (ChoosePawn == 'B')
         {
+            //Net.text = "b";
             UseChess.text = "Black";
             main_camear.transform.position = new Vector3(350, 940, 930);
             main_camear.transform.rotation = Quaternion.Euler(60, 180, 0);
         }
         ChessMen_Move = new ChessMen_Move();
-        UIText();
+        //UIText();
     }
 
     void PawnMesh(string v)
@@ -230,7 +233,9 @@ public class Chess_Move_NET : MonoBehaviour
     void UIText()
     {
         //Net.text = NetworkClient.active.ToString() + " " + NetworkServer.active.ToString();
-        Net.text = ChoosePawn.ToString();
+        //Net.text = ChoosePawn.ToString();
     }
-   
+
+
+
 }

@@ -48,6 +48,11 @@ public class BasicNetworkManager : NetworkManager
         base.LateUpdate();
     }
 
+    public override void Update()
+    {
+        base.Update();
+    }
+
     /// <summary>
     /// Runs on both Server and Client
     /// </summary>

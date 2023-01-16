@@ -45,7 +45,6 @@ namespace Mirror
         // This is different from NetworkServer.active, which is true if the
         // server itself is active rather than this object being active.
         public bool isServer => netIdentity.isServer;
-
         /// <summary>True if this object is on the client and has been spawned by the server.</summary>
         public bool isClient => netIdentity.isClient;
 
@@ -184,6 +183,11 @@ namespace Mirror
             (syncVarDirtyBits | syncObjectDirtyBits) != 0UL &&
             // only check time if bits were dirty. this is more expensive.
             NetworkTime.localTime - lastSyncTime >= syncInterval;
+
+        //public void Update()
+        //{
+
+        //}
 
         /// <summary>Clears all the dirty bits that were set by SetDirtyBits()</summary>
         // automatically invoked when an update is sent for this object, but can

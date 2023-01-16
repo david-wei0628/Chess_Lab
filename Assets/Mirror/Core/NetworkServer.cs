@@ -1018,8 +1018,8 @@ namespace Mirror
         {
             // need to validate permissions carefully.
             // an attacker may attempt to modify a not-owned or not-ClientToServer component.
-
             // valid netId?
+
             if (spawned.TryGetValue(message.netId, out NetworkIdentity identity) && identity != null)
             {
                 // owned by the connection?
@@ -1042,7 +1042,10 @@ namespace Mirror
                     Debug.LogWarning($"Connection {connection.connectionId} attempted to modify {identity} which is not owned by the connection. Disconnecting the connection.");
                     connection.Disconnect();
                 }
+                //using (NetworkReaderPooled reader = NetworkReaderPool.Get(message.payload))
+                //    identity.DeserializeServer(reader, false);
             }
+
             // no warning. don't spam server logs.
             // else Debug.LogWarning($"Did not find target for sync message for {message.netId} . Note: this can be completely normal because UDP messages may arrive out of order, so this message might have arrived after a Destroy message.");
         }
@@ -1080,7 +1083,7 @@ namespace Mirror
 
             // serialize all components with initialState = true
             // (can be null if has none)
-            identity.SerializeServer(true, ownerWriter, observersWriter);
+            identity.SerializeServer(true, observersWriter, ownerWriter);
 
             // convert to ArraySegment to avoid reader allocations
             // if nothing was written, .ToArraySegment returns an empty segment.
